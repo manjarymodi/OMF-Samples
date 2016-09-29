@@ -68,8 +68,16 @@ def create_data_values_stream_message(target_stream_id):
                     # Again, in this example, we're just sending along random values for these two "sensors"
                     "Raw Sensor Reading 1": 100*random.random(),
                     "Raw Sensor Reading 2": 100*random.random()
-                    # For example, to send data for a string-type live data value, such as "Status", you would add
-                    #"Status": "OK"
+					# If you wanted to read, for example, the digital GPIO pins 4 and 5 on a Raspberry PI, 
+					# you would add to the earlier package import section:
+					# 		import RPi.GPIO as GPIO
+					# then add the below 3 lines to set up the GPIO pins:
+					# 		GPIO.setmode(GPIO.BCM) 
+					# 		GPIO.setup(4, GPIO.IN)
+					# 		GPIO.setup(5, GPIO.IN)
+					# and then lastly, you would change the two Raw Sensor reading lines above to
+					#		"Raw Sensor Reading 1": GPIO.input(4),
+                    #		"Raw Sensor Reading 2": GPIO.input(5)
                 }
             ]
         }
