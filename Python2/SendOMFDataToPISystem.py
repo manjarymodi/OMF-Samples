@@ -1,3 +1,17 @@
+#Copyright 2016 OSIsoft, LLC
+#
+#Licensed under the Apache License, Version 2.0 (the "License");
+#you may not use this file except in compliance with the License.
+#You may obtain a copy of the License at
+#
+#<http://www.apache.org/licenses/LICENSE-2.0>
+#
+#Unless required by applicable law or agreed to in writing, software
+#distributed under the License is distributed on an "AS IS" BASIS,
+#WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#See the License for the specific language governing permissions and
+#limitations under the License.
+
 # ***********************************************************************
 # * DISCLAIMER: 
 # * All sample code is provided by OSIsoft for illustrative purposes only.
@@ -14,6 +28,9 @@
 import sys, json, random, time, platform, requests, socket, datetime
 # Used to generate sample data; comment out this line if real data is used
 import random
+
+# Import any special packages needed for a particular hardware platform, for example, for a Raspberry PI,
+# import RPi.GPIO as GPIO 
 
 # ************************************************************************
 
@@ -47,6 +64,21 @@ producer_token = "OMF" + ""
 verify_SSL = False
 
 # ************************************************************************
+# The following function is where you can insert specific initialization code to set up
+# sensors for a particular IoT module or platform
+def initialize_sensors():
+	print("--- Sensors initializing...")
+	try:
+		#For a raspberry pi, for example, to set up pins 4 and 5, you would add 
+		#GPIO.setmode(GPIO.BCM)
+		#GPIO.setup(4, GPIO.IN)
+		#GPIO.setup(5, GPIO.IN)
+		print("--- Sensors initialized!")	
+	except Exception as e:
+		# Log any error, if it occurs
+		print(str(datetime.datetime.now()) + " An error has ocurred when initializing sensors: " + str(e))	
+
+# ************************************************************************
 # The following function you can customize to allow this script to send along any
 # number of different data values, so long as the values that you send here match
 # up with the values defined in the "DataValuesType" OMF message type (see the next section)
@@ -71,7 +103,7 @@ def create_data_values_stream_message(target_stream_id):
 					# If you wanted to read, for example, the digital GPIO pins 4 and 5 on a Raspberry PI, 
 					# you would add to the earlier package import section:
 					# 		import RPi.GPIO as GPIO
-					# then add the below 3 lines to set up the GPIO pins:
+					# then add the below 3 lines to the above initialize_sensors function to set up the GPIO pins:
 					# 		GPIO.setmode(GPIO.BCM) 
 					# 		GPIO.setup(4, GPIO.IN)
 					# 		GPIO.setup(5, GPIO.IN)
@@ -292,6 +324,9 @@ response = requests.post(relay_url, headers=msg_header, data=json.dumps(links), 
 print('Response from relay from the initial LINKS message: {0} {1}'.format(response.status_code, response.text))
 
 # ************************************************************************
+
+# Initialize sensors prior to sending data (if needed), using the function defined earlier
+initialize_sensors()
 
 # Loop indefinitely, sending random events conforming to the value type that we defined earlier
 print('--- Now sending live data every ' + str(number_of_seconds_between_value_messages) + ' second(s) for device "' + device_name + '"...')
