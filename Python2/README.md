@@ -4,7 +4,7 @@ This is a single-fall all-in-one OMF example script.  Within this script, OMF ty
 
 This script is structured so that the first few lines are where a user can customize this script to fit his or her specific needs--for example, to call third-party libraries to actually send data from specific attached sensors, or to customize the OMF message types to send along data for additional sensors beyond the two sensors listed in the example.  The user also has the option to edit the values of variables that will define the name of the PI AF Element and PI AF Element Template that will be created.  
 
-In short, it is hoped that by cloning this file onto a device, with a few slight modifications to this file, a user can quickly set up an arbitrary device to send along data to am OMF endpoint.  For additional information on OMF, including details that can help explain the role and structure of the message types used in this script, please consult the online OMF documentation, which can be found at http://omf-docs.readthedocs.io/en/latest/.
+In short, it is hoped that by cloning this file onto a device, with a few slight modifications to this file, a user can quickly set up an arbitrary device to send along data to am OMF endpoint.  For additional information on OMF, including details that can help explain the role and structure of the message types used in this script, please consult the online OMF documentation, which can be found at http://omf-docs.osisoft.com.
 
 ##License
 
