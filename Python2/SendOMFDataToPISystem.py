@@ -64,6 +64,10 @@ producer_token = "OMF" + ""
 verify_SSL = False
 
 # ************************************************************************
+# Below is where you can initialize any global variables that are needed by your applicatio;
+# certain sensors, for example, will require global interface or sensor variables
+# myExampleInterfaceKitGlobalVar = None
+
 # The following function is where you can insert specific initialization code to set up
 # sensors for a particular IoT module or platform
 def initialize_sensors():
@@ -100,21 +104,39 @@ def create_data_values_stream_message(target_stream_id):
                     # Again, in this example, we're just sending along random values for these two "sensors"
                     "Raw Sensor Reading 1": 100*random.random(),
                     "Raw Sensor Reading 2": 100*random.random()
-					# If you wanted to read, for example, the digital GPIO pins 4 and 5 on a Raspberry PI, 
-					# you would add to the earlier package import section:
-					# 		import RPi.GPIO as GPIO
-					# then add the below 3 lines to the above initialize_sensors function to set up the GPIO pins:
-					# 		GPIO.setmode(GPIO.BCM) 
-					# 		GPIO.setup(4, GPIO.IN)
-					# 		GPIO.setup(5, GPIO.IN)
-					# and then lastly, you would change the two Raw Sensor reading lines above to
-					#		"Raw Sensor Reading 1": GPIO.input(4),
-                    #		"Raw Sensor Reading 2": GPIO.input(5)
+			# If you wanted to read, for example, the digital GPIO pins 4 and 5 on a Raspberry PI, 
+			# you would add to the earlier package import section:
+			# 		import RPi.GPIO as GPIO
+			# then add the below 3 lines to the above initialize_sensors function to set up the GPIO pins:
+			# 		GPIO.setmode(GPIO.BCM) 
+			# 		GPIO.setup(4, GPIO.IN)
+			# 		GPIO.setup(5, GPIO.IN)
+			# and then lastly, you would change the two Raw Sensor reading lines above to
+			#		"Raw Sensor Reading 1": GPIO.input(4),
+                        #       	"Raw Sensor Reading 2": GPIO.input(5)
                 }
             ]
         }
     ]
     return data_values_JSON
+
+# ************************************************************************
+
+# Define a helper function to allow easily sending web request messages;
+# this function can later be customized to allow you to port this script to other languages.
+# All it does is take in a data object and a message type, and it sends an HTTPS
+# request to the target OMF endpoint
+def sendOMFMessageToEndPoint(message_type, OMF_data):
+        try: 
+                # Assemble headers that contain the producer token and message type
+                msg_header = {'producertoken': producer_token, 'messagetype': message_type, 'action': 'create', 'messageformat': 'JSON'}
+                # Send the request, and collect the response
+                response = requests.post(relay_url, headers=msg_header, data=json.dumps(OMF_data), verify=verify_SSL)
+                # Print a debug message, if desired
+                print('Response from relay from the initial "{0}" message: {1} {2}'.format(message_type, response.status_code, response.text))
+        except Exception as e:
+                # Log any error, if it occurs
+                print(str(datetime.datetime.now()) + " An error ocurred during web request: " + str(e))		
 
 # ************************************************************************
 
@@ -171,6 +193,9 @@ types = [
                 "type": "string"
             },
             "Location": {
+                "type": "string"
+            },
+            "Data Ingress Method": {
                 "type": "string"
             }
             # For example, to add a number-type static attribute for the device model, you would add
@@ -232,9 +257,7 @@ if not verify_SSL:
 print('--- Setup: targeting endpoint "' + relay_url + '"...\n    Now sending types, defining streams, and creating assets and links...')
     
 # Send the types message, so that these types can be referenced in all later messages
-msg_header = {'producertoken': producer_token, 'messagetype': 'Types', 'action': 'create', 'messageformat': 'JSON'}
-response = requests.post(relay_url, headers=msg_header, data=json.dumps(types), verify=verify_SSL)
-print('Response from relay from the initial TYPES message: {0} {1}'.format(response.status_code, response.text))
+sendOMFMessageToEndPoint("Types", types)
 
 # ************************************************************************
 
@@ -265,9 +288,7 @@ streams = [
 ]
 
 # Send the streams message, to instantiate streams; we can now directly start sending data to each stream
-msg_header = {'producertoken': producer_token, 'messagetype': 'Streams', 'action': 'create', 'messageformat': 'JSON'}
-response = requests.post(relay_url, headers=msg_header, data=json.dumps(streams), verify=verify_SSL)
-print('Response from relay from the initial STREAMS message: {0} {1}'.format(response.status_code, response.text))
+sendOMFMessageToEndPoint("Streams", streams)
 
 # ************************************************************************
 
@@ -281,17 +302,16 @@ assets = [
         "values": [
             {
                 "Name": device_name,
-                "Device Type": (platform.machine() + " - " + platform.platform() + " - " + platform.processor()), "Location": device_location
+                "Device Type": (platform.machine() + " - " + platform.platform() + " - " + platform.processor()),
+                "Location": device_location,
+                "Data Ingress Method": "OMF"
             }
         ]
     }
 ]
 
 # Send the message to create the PI AF asset; it won't appear in PI AF, though, because it hasn't yet been positioned...
-msg_header = {'producertoken': producer_token, 'messagetype': 'Values', 'messageformat': 'JSON'}
-response = requests.post(relay_url, headers=msg_header, data=json.dumps(assets), verify=verify_SSL, timeout=60)
-print('Response from relay from the initial ASSETS message: {0} {1}'.format(response.status_code, response.text))
-
+sendOMFMessageToEndPoint("Values", assets)
 # ************************************************************************
 
 # Create a JSON packet to containing the LINKS to be made, which will both position the new PI AF
@@ -319,9 +339,7 @@ links = [
 ]
 
 # Send the message to create the links, which will finish making the AF element and will set up links for PI POints
-msg_header = {'producertoken': producer_token, 'messagetype': 'Values', 'messageformat': 'JSON'}
-response = requests.post(relay_url, headers=msg_header, data=json.dumps(links), verify=verify_SSL, timeout=60)
-print('Response from relay from the initial LINKS message: {0} {1}'.format(response.status_code, response.text))
+sendOMFMessageToEndPoint("Values", links)
 
 # ************************************************************************
 
@@ -333,16 +351,8 @@ print('--- Now sending live data every ' + str(number_of_seconds_between_value_m
 while True:
     # Call the custom function that builds a JSON object that contains new data values; see the beginning of this script
     values = create_data_values_stream_message(stream_id_for_sending_values)
-    # Convert the data into bytes prior to sending it
-    json_values = json.dumps(values)
     # Send the data to the relay; it will be stored in a point called <producer_token>.<streamId>
-    try:
-        response = requests.post(relay_url, headers=msg_header, data=json_values, verify=verify_SSL, timeout=60)
-    except Exception as e:
-        # Log any error, if it occurs
-        print(str(datetime.datetime.now()) + " An error has ocurred: " + str(e))		
-    # Comment out this line if you want to disable printing the response with each message request
-    print('Response from relay from values message: {0} {1}'.format(response.status_code, response.text))
-
+    sendOMFMessageToEndPoint("Values", values)
+ 
     # Send the next message after the required interval
     time.sleep(number_of_seconds_between_value_messages)
