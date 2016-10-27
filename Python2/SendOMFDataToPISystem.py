@@ -121,7 +121,7 @@ def sendOMFMessageToEndPoint(message_type, OMF_data):
                 # Assemble headers that contain the producer token and message type
                 msg_header = {'producertoken': producer_token, 'messagetype': message_type, 'action': 'create', 'messageformat': 'JSON'}
                 # Send the request, and collect the response
-                response = requests.post(relay_url, headers=msg_header, data=json.dumps(OMF_data), verify=verify_SSL)
+                response = requests.post(relay_url, headers=msg_header, data=json.dumps(OMF_data), verify=verify_SSL, timeout=30)
                 # Print a debug message, if desired
                 print('Response from relay from the initial "{0}" message: {1} {2}'.format(message_type, response.status_code, response.text))
         except Exception as e:
