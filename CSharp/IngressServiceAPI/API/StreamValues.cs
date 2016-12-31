@@ -9,7 +9,7 @@ namespace IngressServiceAPI.API
     /// </summary>
     public class StreamValues
     {
-        public string StreamId { get; set; }
+        public string Stream { get; set; }
         public IEnumerable<object> Values { get; set; }
     }
 }

@@ -39,7 +39,7 @@ namespace IngressServiceAPI.API
         {
             get
             {
-                MessageType type = MessageType.Values;
+                MessageType type = MessageType.Data;
 
                 string headerVal = "";
                 if (Headers.TryGetValue(HeaderKey_MessageType, out headerVal))
@@ -185,9 +185,9 @@ namespace IngressServiceAPI.API
 
     public enum MessageType
     {
-        Values = 0,
-        Streams,
-        Types
+        Data = 0,
+        Stream,
+        Type
     }
 
     public enum MessageFormat

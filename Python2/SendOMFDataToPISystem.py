@@ -87,7 +87,7 @@ def create_data_values_stream_message(target_stream_id):
     # Assemble a JSON object containing the streamId and any data values
     data_values_JSON = [
         {
-            "streamId": target_stream_id,
+            "stream": target_stream_id,
             "values": [
                 {
                     "Time": timestamp,
@@ -247,38 +247,23 @@ if not verify_SSL:
 print('--- Setup: targeting endpoint "' + relay_url + '"...\n    Now sending types, defining streams, and creating assets and links...')
     
 # Send the types message, so that these types can be referenced in all later messages
-sendOMFMessageToEndPoint("Types", types)
+sendOMFMessageToEndPoint("Type", types)
 
 # ************************************************************************
 
 # Create a JSON packet to define streamIds and the type (using the types listed above) for each new stream
 
 # Create variables to store the Ids of the streams that will be used
-stream_id_for_creating_assets = (device_name + "_asset_creation_stream")
-stream_id_for_creating_asset_asset_links = (device_name + "_asset_asset_link_creation_stream")
-stream_id_for_creating_asset_values_links = (device_name + "_asset_values_linking_stream")
 stream_id_for_sending_values = (device_name + "_data_values_stream")
 streams = [
     {
-        "streamId": stream_id_for_creating_assets,
-        "typeId": assets_message_type_name
-    },
-    {
-        "streamId": stream_id_for_creating_asset_asset_links,
-        "typeId": "my_asset_asset_links_type"
-    },
-    {
-        "streamId": stream_id_for_creating_asset_values_links,
-        "typeId": "my_asset_values_links_type"
-    },
-    {
-        "streamId": stream_id_for_sending_values,
-        "typeId": "my_data_values_type"
+        "id": stream_id_for_sending_values,
+        "type": "my_data_values_type"
     }
 ]
 
 # Send the streams message, to instantiate streams; we can now directly start sending data to each stream
-sendOMFMessageToEndPoint("Streams", streams)
+sendOMFMessageToEndPoint("Stream", streams)
 
 # ************************************************************************
 
@@ -288,7 +273,7 @@ sendOMFMessageToEndPoint("Streams", streams)
 # in this case, we're auto-populating the Device Type, but you can manually hard-code in values if you wish
 assets = [
     {
-        "streamId": stream_id_for_creating_assets,
+        "type": assets_message_type_name,
         "values": [
             {
                 "Name": device_name,
@@ -301,7 +286,7 @@ assets = [
 ]
 
 # Send the message to create the PI AF asset; it won't appear in PI AF, though, because it hasn't yet been positioned...
-sendOMFMessageToEndPoint("Values", assets)
+sendOMFMessageToEndPoint("Object", assets)
 # ************************************************************************
 
 # Create a JSON packet to containing the LINKS to be made, which will both position the new PI AF
@@ -309,7 +294,7 @@ sendOMFMessageToEndPoint("Values", assets)
 # Again, for the stream IDs, use the stream IDs sent earlier
 links = [
     {
-        "streamId": stream_id_for_creating_asset_asset_links,
+        "type": my_asset_asset_links_type,
         "values": [
             {
                 "Source": "_ROOT",
@@ -318,7 +303,7 @@ links = [
         ]
     },
     {
-        "streamId": stream_id_for_creating_asset_values_links,
+        "type": my_asset_values_links_type,
         "values": [
             {
                 "Source": device_name,
@@ -329,7 +314,7 @@ links = [
 ]
 
 # Send the message to create the links, which will finish making the AF element and will set up links for PI POints
-sendOMFMessageToEndPoint("Values", links)
+sendOMFMessageToEndPoint("Object", links)
 
 # ************************************************************************
 
@@ -342,7 +327,7 @@ while True:
     # Call the custom function that builds a JSON object that contains new data values; see the beginning of this script
     values = create_data_values_stream_message(stream_id_for_sending_values)
     # Send the data to the relay; it will be stored in a point called <producer_token>.<streamId>
-    sendOMFMessageToEndPoint("Values", values)
+    sendOMFMessageToEndPoint("Data", values)
  
     # Send the next message after the required interval
     time.sleep(number_of_seconds_between_value_messages)
