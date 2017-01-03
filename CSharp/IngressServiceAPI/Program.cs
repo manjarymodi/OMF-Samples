@@ -27,9 +27,9 @@ namespace IngressServiceAPI
 
 
             // 2) Send the Streams message
-            StreamInfo stream1 = new StreamInfo() { StreamId = "TestStream1", TypeId = "SimpleType" };
-            StreamInfo stream2 = new StreamInfo() { StreamId = "TestStream2", TypeId = "SimpleType" };
-            StreamInfo stream3 = new StreamInfo() { StreamId = "TestStream3", TypeId = "ComplexType" };
+            StreamInfo stream1 = new StreamInfo() { Id = "TestStream1", Type = "SimpleType" };
+            StreamInfo stream2 = new StreamInfo() { Id = "TestStream2", Type = "SimpleType" };
+            StreamInfo stream3 = new StreamInfo() { Id = "TestStream3", Type = "ComplexType" };
 
             client.CreateStreams(new StreamInfo[] { stream1, stream2, stream3 });
 
@@ -37,7 +37,7 @@ namespace IngressServiceAPI
             // 3) Send the Values messages
             StreamValues complexValue = new StreamValues()
             {
-                StreamId = stream3.StreamId,
+                Stream = stream3.Id,
                 Values = new List<ComplexType> { ComplexType.CreateSampleValue() }
             };
 
@@ -54,8 +54,8 @@ namespace IngressServiceAPI
                     Thread.Sleep(10);  // Offset the time-stamps by 10 ms
                 }
 
-                StreamValues vals1 = new StreamValues() { StreamId = stream1.StreamId, Values = values };
-                StreamValues vals2 = new StreamValues() { StreamId = stream2.StreamId, Values = values };
+                StreamValues vals1 = new StreamValues() { Stream = stream1.Id, Values = values };
+                StreamValues vals2 = new StreamValues() { Stream = stream2.Id, Values = values };
 
                 // Now send them
                 client.SendValuesAsync(new StreamValues[] { vals1, vals2 }).Wait();

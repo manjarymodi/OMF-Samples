@@ -24,7 +24,7 @@ var streamName = 'os-monitor.' + monitor.os.hostname();
 
 function sendType(cb){
     //register the type
-    msgHeader.messagetype = 'types';
+    msgHeader.messagetype = 'type';
     options.body = JSON.stringify([{
 	id: 'os-monitor.event',
 	type: 'object',
@@ -61,10 +61,10 @@ function sendType(cb){
 
 function sendStream(cb){
     //register the stream
-    msgHeader.messagetype = 'streams';
+    msgHeader.messagetype = 'stream';
     options.body = JSON.stringify([{
-	streamId: streamName,
-	typeId: 'os-monitor.event'
+	id: streamName,
+	type: 'os-monitor.event'
     }]);
     
     request(options, function(err, res, body){
@@ -96,7 +96,7 @@ monitor.on('monitor', function(monitorEvent) {
     var timestring = new Date(monitorEvent.timestamp * 1000).toISOString();
     //transform into object compliant with our type
     var event = {
-	streamId: streamName,
+	stream: streamName,
 	values: [{
 	    loadavg: {
 		oneMinute: monitorEvent.loadavg[0],
@@ -109,7 +109,7 @@ monitor.on('monitor', function(monitorEvent) {
 	    timestamp: timestring
 	}]
     }
-    msgHeader.messagetype = 'values';
+    msgHeader.messagetype = 'data';
     var jsonValue = JSON.stringify([event]);
     // For such a small message, compression doesn't help much, but we're doing it here
     // for demonstration.
