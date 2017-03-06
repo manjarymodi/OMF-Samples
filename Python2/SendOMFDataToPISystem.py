@@ -80,14 +80,14 @@ def initialize_sensors():
 # but here is where you could change this function to reference a library that actually
 # reads from sensors attached to the device that's running the script
 
-def create_data_values_stream_message(target_stream_id):
+def create_data_values_stream_message(target_container_id):
     data_values_JSON = ''
     # Get the current timestamp
     timestamp = datetime.datetime.utcnow().isoformat() + 'Z'
     # Assemble a JSON object containing the streamId and any data values
     data_values_JSON = [
         {
-            "stream": target_stream_id,
+            "containerid": target_container_id,
             "values": [
                 {
                     "Time": timestamp,
@@ -119,7 +119,7 @@ def create_data_values_stream_message(target_stream_id):
 def sendOMFMessageToEndPoint(message_type, OMF_data):
         try: 
                 # Assemble headers that contain the producer token and message type
-                msg_header = {'producertoken': producer_token, 'messagetype': message_type, 'action': 'create', 'messageformat': 'JSON'}
+                msg_header = {'producertoken': producer_token, 'messagetype': message_type, 'action': 'create', 'messageformat': 'JSON', 'omfversion': '1.0' }
                 # Send the request, and collect the response
                 response = requests.post(relay_url, headers=msg_header, data=json.dumps(OMF_data), verify=verify_SSL, timeout=30)
                 # Print a debug message, if desired
@@ -135,7 +135,7 @@ types = [
 
     # ************************************************************************
     # There are several different message types that will be used by this script, but
-    # you can customize this script for your own needs by only modifying two of those types:
+    # you can customize this script for your own needs by modifying the types:
     # First, you can modify the "AssetsType", which will allow you to customize which static
     # attributes are added to the new PI AF Element that will be created, and second,
     # you can modify the "DataValuesType", which will allow you to customize this script to send
@@ -146,6 +146,7 @@ types = [
     {
         "id": "my_data_values_type",
         "type": "object",
+        "classification": "dynamic",
         "properties": {
             "Time": {
                 "format": "date-time",
@@ -173,7 +174,7 @@ types = [
     {
         "id": assets_message_type_name,
         "type": "object",
-        "classification": "asset",
+        "classification": "static",
         "properties": {
             "Name": {
                 "type": "string",
@@ -193,49 +194,6 @@ types = [
             #   "type": "number"
             #}
         }
-    },
-    # ************************************************************************
-    # The below types are standard ones that will be used regardless of the device
-    # you're using or the number of data items; thus, to customize this script for your own
-    # needs, you only need to modify the above two types 
-	
-    # This link type is used to instruct the relay where to locate each new PI AF
-    # Element in the target PI AF database; you shouldn't need to modify it
-    {
-        "id": "my_asset_asset_links_type",
-        "type": "object",
-        "classification": "link",
-        "properties": {
-            # The parent PI AF Element
-            "Source": {
-                "type": "string",
-                "LinkSchema": assets_message_type_name
-            },
-            # The new PI AF Element that will appear beneath it
-            "Target": {
-                "type": "string",
-                "LinkSchema": assets_message_type_name
-            }
-        }
-    },
-    # This link type is used to map live PI Points from the values stream to the new
-    # PI AF Element that will be created
-    {
-        "id": "my_asset_values_links_type",
-        "type": "object",
-        "classification": "link",
-        "properties": {
-            # The target PI AF Element
-            "Source": {
-                "type": "string",
-                "LinkSchema": assets_message_type_name
-            },
-            # The stream of values that should be associated with this Element
-            "Target": {
-                "type": "string",
-                "LinkSchema": "my_data_values_type"
-            }
-        }
     }
 ]
 
@@ -244,36 +202,37 @@ types = [
 if not verify_SSL:
     requests.packages.urllib3.disable_warnings()
 
-print('--- Setup: targeting endpoint "' + relay_url + '"...\n    Now sending types, defining streams, and creating assets and links...')
+print('--- Setup: targeting endpoint "' + relay_url + '"...\n    Now sending types, defining containers, and creating assets and links...')
     
 # Send the types message, so that these types can be referenced in all later messages
 sendOMFMessageToEndPoint("Type", types)
 
 # ************************************************************************
 
-# Create a JSON packet to define streamIds and the type (using the types listed above) for each new stream
+# Create a JSON packet to define containerIds and the type (using the types listed above) for each new stream
 
-# Create variables to store the Ids of the streams that will be used
-stream_id_for_sending_values = (device_name + "_data_values_stream")
-streams = [
+# Create variables to store the Ids of the containers that will be used
+container_id_for_sending_values = (device_name + "_data_values_stream")
+containers = [
     {
-        "id": stream_id_for_sending_values,
-        "type": "my_data_values_type"
+        "id": container_id_for_sending_values,
+        "typeid": "my_data_values_type"
     }
 ]
 
 # Send the streams message, to instantiate streams; we can now directly start sending data to each stream
-sendOMFMessageToEndPoint("Stream", streams)
+sendOMFMessageToEndPoint("Container", containers)
 
 # ************************************************************************
 
 # Create a JSON packet to containing the data for the PI AF asset that will be made;
-# for the streamId, use the name of the asset creation stream ID from above
 # Here is where you can specify values for the static PI AF attributes;
 # in this case, we're auto-populating the Device Type, but you can manually hard-code in values if you wish
-assets = [
+# we also add the LINKS to be made, which will both position the new PI AF
+# Element, so it will show up in AF, and will associate the PI Points that will be created with that Element
+assets_and_links = [
     {
-        "type": assets_message_type_name,
+        "typeid": assets_message_type_name,
         "values": [
             {
                 "Name": device_name,
@@ -282,40 +241,24 @@ assets = [
                 "Data Ingress Method": "OMF"
             }
         ]
-    }
-]
-
-# Send the message to create the PI AF asset; it won't appear in PI AF, though, because it hasn't yet been positioned...
-sendOMFMessageToEndPoint("Object", assets)
-# ************************************************************************
-
-# Create a JSON packet to containing the LINKS to be made, which will both position the new PI AF
-# Element, so it will show up in AF, and will associate the PI Points that will be created with that Element
-# Again, for the stream IDs, use the stream IDs sent earlier
-links = [
+    },
     {
-        "type": my_asset_asset_links_type,
+        "typeid": "__Link",
         "values": [
             {
                 "Source": "_ROOT",
                 "Target": device_name
-            }
-        ]
-    },
-    {
-        "type": my_asset_values_links_type,
-        "values": [
+            },
             {
                 "Source": device_name,
-                "Target": stream_id_for_sending_values
+                "Target": container_id_for_sending_values
             }
         ]
-    },
+    }
 ]
 
-# Send the message to create the links, which will finish making the AF element and will set up links for PI POints
-sendOMFMessageToEndPoint("Object", links)
-
+# Send the message to create the PI AF asset; it won't appear in PI AF, though, because it hasn't yet been positioned...
+sendOMFMessageToEndPoint("Data", assets_and_links)
 # ************************************************************************
 
 # Initialize sensors prior to sending data (if needed), using the function defined earlier
@@ -325,7 +268,7 @@ initialize_sensors()
 print('--- Now sending live data every ' + str(number_of_seconds_between_value_messages) + ' second(s) for device "' + device_name + '"...')
 while True:
     # Call the custom function that builds a JSON object that contains new data values; see the beginning of this script
-    values = create_data_values_stream_message(stream_id_for_sending_values)
+    values = create_data_values_stream_message(container_id_for_sending_values)
     # Send the data to the relay; it will be stored in a point called <producer_token>.<streamId>
     sendOMFMessageToEndPoint("Data", values)
  

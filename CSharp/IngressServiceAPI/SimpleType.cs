@@ -14,9 +14,10 @@ namespace IngressServiceAPI
             @"{
                 ""id"": ""SimpleType"",
                 ""type"": ""object"",
+                ""classification"": ""dynamic"",
                 ""properties"": {
                     ""Time"": { ""type"": ""string"", ""format"": ""date-time"", ""index"": true },
-                    ""Value"": { ""type"": ""number"" }
+                    ""Value"": { ""type"": ""number"", ""format"": ""float64"" }
                 }
             }";
     }

@@ -26,18 +26,18 @@ namespace IngressServiceAPI
             client.CreateTypes(new string[] { ComplexType.JsonSchema });
 
 
-            // 2) Send the Streams message
-            StreamInfo stream1 = new StreamInfo() { Id = "TestStream1", Type = "SimpleType" };
-            StreamInfo stream2 = new StreamInfo() { Id = "TestStream2", Type = "SimpleType" };
-            StreamInfo stream3 = new StreamInfo() { Id = "TestStream3", Type = "ComplexType" };
+            // 2) Send the Containers message
+            ContainerInfo stream1 = new ContainerInfo() { Id = "TestStream1", TypeId = "SimpleType" };
+            ContainerInfo stream2 = new ContainerInfo() { Id = "TestStream2", TypeId = "SimpleType" };
+            ContainerInfo stream3 = new ContainerInfo() { Id = "TestStream3", TypeId = "ComplexType" };
 
-            client.CreateStreams(new StreamInfo[] { stream1, stream2, stream3 });
+            client.CreateContainers(new ContainerInfo[] { stream1, stream2, stream3 });
 
 
             // 3) Send the Values messages
             StreamValues complexValue = new StreamValues()
             {
-                Stream = stream3.Id,
+                ContainerId = stream3.Id,
                 Values = new List<ComplexType> { ComplexType.CreateSampleValue() }
             };
 
@@ -54,8 +54,8 @@ namespace IngressServiceAPI
                     Thread.Sleep(10);  // Offset the time-stamps by 10 ms
                 }
 
-                StreamValues vals1 = new StreamValues() { Stream = stream1.Id, Values = values };
-                StreamValues vals2 = new StreamValues() { Stream = stream2.Id, Values = values };
+                StreamValues vals1 = new StreamValues() { ContainerId = stream1.Id, Values = values };
+                StreamValues vals2 = new StreamValues() { ContainerId = stream2.Id, Values = values };
 
                 // Now send them
                 client.SendValuesAsync(new StreamValues[] { vals1, vals2 }).Wait();

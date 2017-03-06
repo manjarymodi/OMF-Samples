@@ -68,7 +68,7 @@
   <ItemGroup>
     <Compile Include="API\IngressClient.cs" />
     <Compile Include="API\Message.cs" />
-    <Compile Include="API\StreamInfo.cs" />
+    <Compile Include="API\ContainerInfo.cs" />
     <Compile Include="API\StreamValues.cs" />
     <Compile Include="ComplexType.cs" />
     <Compile Include="Program.cs" />

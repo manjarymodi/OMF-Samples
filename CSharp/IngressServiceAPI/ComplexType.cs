@@ -36,20 +36,21 @@ namespace IngressServiceAPI
             ""id"": ""ComplexType"",
             ""description"": ""A complex type including strings, ints, doubles, arrays, and nested objects"",
             ""type"": ""object"",
+            ""classification"": ""dynamic"",
             ""properties"": {
                 ""DateTimeProperty"": { ""type"": ""string"", ""format"": ""date-time"", ""index"": true },
                 ""StringProperty"": { ""type"": ""string""},
-                ""DoubleProperty"": { ""type"": ""number"" },
+                ""DoubleProperty"": { ""type"": ""number"", ""format"": ""float64"" },
                 ""IntegerProperty"": { ""type"": ""integer"" },
                 ""ObjectProperty"": {
                     ""type"": ""object"",
                     ""properties"": {
-                        ""NumberProperty"": { ""type"": ""number"" },
+                        ""NumberProperty"": { ""type"": ""number"", ""format"": ""float64"" },
                         ""IntegerArrayProperty"": { ""type"": ""array"", ""items"": { ""type"": ""integer"" }, ""maxItems"": 3 },
                         ""NestedObjectProperty"": {
                             ""type"": ""object"",
                             ""properties"": {
-                                ""NumberProperty"": { ""type"": ""number"" },
+                                ""NumberProperty"": { ""type"": ""number"", ""format"": ""float64"" },
                                 ""StringProperty"": { ""type"": ""string"" }
                             }
                         }
