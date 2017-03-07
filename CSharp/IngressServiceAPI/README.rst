@@ -32,19 +32,19 @@ Types define the structure of the data that will be sent to the service.  We use
 
 Creating Containers
 ----------------
-Containers define a group of typed and ordered data.  Conceptually,  you could think of a container as relating to a sensor or a device that emits a continuous stream of data.   Since all data stored in the Ingress Service's historian is associated with a stream, this needs to be created before data can be successfully sent and stored in the historian.
+Containers define a group of typed and ordered data.  Conceptually,  you could think of a container as relating to a sensor or a device that emits a continuous stream of data.   Since all data stored in the OSIsoft Cloud Services Data Store is associated with a stream, this needs to be created before data can be successfully sent and stored in the historian.
 
-Containers are created by building a ``StreamInfo`` object and passing it to the ``IngressClient``.  The ``StreamInfo`` is a tuple that consist of a containerId and it's associated typeId.  The containerId can be any unique string that you want to use to identify your stream.
+Containers are created by building a ``ContainerInfo`` object and passing it to the ``IngressClient``.  The ``ContainerInfo`` is a tuple that consist of a containerId and it's associated typeId.  The container Id can be any unique string that you want to use to identify your stream.
 ::
 
-    ContainerInfo stream1 = new ContainerInfo() { ContainerId = "TestStream1", TypeId = "SimpleType" };
+    ContainerInfo stream1 = new ContainerInfo() { Id = "TestStream1", TypeId = "SimpleType" };
 
     ingressClient.CreateContainers(new ContainerInfo[] { stream1 });
 
 
 Sending Values
 ---------------
-Once your type and container is created, you can now send values associated with either the type or container. Since the Ingress Service's historian currently only supports stream data, values are sent by creating a collection of ``StreamValues`` objects and then passing that to the ``IngressClient``.  ``StreamValues`` is an object that contains your containerId associated with your values, and a collection of objects that contain your values.
+Once your type and container have been created, you can now send values associated with either the type or container. Since the OSIsoft Cloud Services Data Store currently only supports stream data, values are sent by creating a collection of ``StreamValues`` objects and then passing that to the ``IngressClient``.  ``StreamValues`` is an object that contains your container Id associated with your values, and a collection of objects that contain your values.
 ::
 
     // Create a collection of values and add your data
