@@ -45,7 +45,7 @@ function sendType(cb){
 	    timestamp: {
 		type: 'string',
 		format: 'date-time',
-		index: 'true'
+		isindex: 'true'
 	    }
 	}    
     }]);

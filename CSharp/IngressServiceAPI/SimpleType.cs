@@ -16,7 +16,7 @@ namespace IngressServiceAPI
                 ""type"": ""object"",
                 ""classification"": ""dynamic"",
                 ""properties"": {
-                    ""Time"": { ""type"": ""string"", ""format"": ""date-time"", ""index"": true },
+                    ""Time"": { ""type"": ""string"", ""format"": ""date-time"", ""isindex"": true },
                     ""Value"": { ""type"": ""number"", ""format"": ""float64"" }
                 }
             }";

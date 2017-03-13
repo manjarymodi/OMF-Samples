@@ -23,7 +23,7 @@ Types define the structure of the data that will be sent to the service.  We use
           ""type"": ""object"",
 		  ""classification"": ""dynamic"",
           ""properties"": {
-              ""Time"": { ""type"": ""string"", ""format"": ""date-time"", ""index"": true },
+              ""Time"": { ""type"": ""string"", ""format"": ""date-time"", ""isindex"": true },
               ""Value"": { ""type"": ""number"" }
           }
       }";

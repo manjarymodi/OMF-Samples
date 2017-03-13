@@ -151,7 +151,7 @@ types = [
             "Time": {
                 "format": "date-time",
                 "type": "string",
-                "index": True
+                "isindex": True
             },
             "Raw Sensor Reading 1": {
                 "type": "number"
@@ -178,7 +178,7 @@ types = [
         "properties": {
             "Name": {
                 "type": "string",
-                "index": True
+                "isindex": True
             },
             "Device Type": {
                 "type": "string"
@@ -246,12 +246,23 @@ assets_and_links = [
         "typeid": "__Link",
         "values": [
             {
-                "Source": "_ROOT",
-                "Target": device_name
+                "Source": {
+                    "typeid": assets_message_type_name,
+                    "index": "_ROOT"
+                    },
+                "Target": {
+                    "typeid": assets_message_type_name,
+                    "index": device_name
+                    }
             },
             {
-                "Source": device_name,
-                "Target": container_id_for_sending_values
+                "Source": {
+                    "typeid": assets_message_type_name,
+                    "index": device_name
+                    },
+                "Target": {
+                    "containerid": container_id_for_sending_values
+                    }
             }
         ]
     }

@@ -38,7 +38,7 @@ namespace IngressServiceAPI
             ""type"": ""object"",
             ""classification"": ""dynamic"",
             ""properties"": {
-                ""DateTimeProperty"": { ""type"": ""string"", ""format"": ""date-time"", ""index"": true },
+                ""DateTimeProperty"": { ""type"": ""string"", ""format"": ""date-time"", ""isindex"": true },
                 ""StringProperty"": { ""type"": ""string""},
                 ""DoubleProperty"": { ""type"": ""number"", ""format"": ""float64"" },
                 ""IntegerProperty"": { ""type"": ""integer"" },
