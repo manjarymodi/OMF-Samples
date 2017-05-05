@@ -9,7 +9,8 @@ nconf.file({ file: './config.json' });
 // setup common headers
 var msgHeader = {
     producertoken: nconf.get('producertoken'),
-    messageformat: 'JSON'
+    messageformat: 'JSON',
+    omfversion: '1.0'
 };
 
 // setup common request options
@@ -28,6 +29,7 @@ function sendType(cb){
     options.body = JSON.stringify([{
 	id: 'os-monitor.event',
 	type: 'object',
+    classification: 'dynamic',
 	properties: {
 	    loadavg: {
 		type: 'object',
@@ -43,7 +45,7 @@ function sendType(cb){
 	    timestamp: {
 		type: 'string',
 		format: 'date-time',
-		index: 'true'
+		isindex: 'true'
 	    }
 	}    
     }]);
@@ -59,33 +61,33 @@ function sendType(cb){
     });
 }
 
-function sendStream(cb){
-    //register the stream
-    msgHeader.messagetype = 'stream';
+function sendContainer(cb){
+    //register the container
+    msgHeader.messagetype = 'container';
     options.body = JSON.stringify([{
 	id: streamName,
-	type: 'os-monitor.event'
+	typeid: 'os-monitor.event'
     }]);
     
     request(options, function(err, res, body){
 	if(err){
-	    console.log('Error sending stream message.');
+	    console.log('Error sending container message.');
 	    throw Error(err);
 	} else {
-	    console.log(res.statusCode, 'Stream message sent.');
+	    console.log(res.statusCode, 'Container message sent.');
 	    cb();
 	}
     });
 }
 
 //use seq to ensure that the monitor is not started until
-//the type and stream messages are successfully sent in order
+//the type and container messages are successfully sent in order
 seq()
     .seq(function(){
 	sendType(this);
     })
     .seq(function(){
-	sendStream(this);
+	sendContainer(this);
     })
     .seq(function(){
 	monitor.start({ delay: nconf.get('interval') } );
@@ -96,7 +98,7 @@ monitor.on('monitor', function(monitorEvent) {
     var timestring = new Date(monitorEvent.timestamp * 1000).toISOString();
     //transform into object compliant with our type
     var event = {
-	stream: streamName,
+	containerid: streamName,
 	values: [{
 	    loadavg: {
 		oneMinute: monitorEvent.loadavg[0],

@@ -12,6 +12,7 @@ namespace IngressServiceAPI.API
     /// </summary>
     public class IngressClient : IDisposable
     {
+        public const string CurrentOMFVersion = "1.0";
         private readonly HttpClient _client;
         private string _producerToken;
 
@@ -42,14 +43,14 @@ namespace IngressServiceAPI.API
         }
 
         /// <summary>
-        /// Sends a collection of StreamId, TypeId pairs to the endpoint.
+        /// Sends a collection of ContainerId, TypeId pairs to the endpoint.
         /// </summary>
         /// <param name="streams"></param>
-        public void CreateStreams(IEnumerable<StreamInfo> streams)
+        public void CreateContainers(IEnumerable<ContainerInfo> streams)
         {
             string json = JsonConvert.SerializeObject(streams);
             var bytes = Encoding.UTF8.GetBytes(json);
-            SendMessageAsync(bytes, MessageType.Stream, MessageAction.Create).Wait();
+            SendMessageAsync(bytes, MessageType.Container, MessageAction.Create).Wait();
         }
 
         /// <summary>
@@ -73,6 +74,7 @@ namespace IngressServiceAPI.API
             msg.Action = action;
             msg.MessageFormat = MessageFormat.JSON;
             msg.Body = body;
+            msg.Version = CurrentOMFVersion;
 
             if (UseCompression)
                 msg.Compress(MessageCompression.GZip);

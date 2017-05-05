@@ -17,6 +17,7 @@ namespace IngressServiceAPI.API
         public const string HeaderKey_MessageFormat = "messageformat";
         public const string HeaderKey_MessageCompression = "messagecompression";
         public const string HeaderKey_Action = "action";
+        public const string HeaderKey_Version = "omfversion";
 
         public IDictionary<string, string> Headers { get; private set; }
         public byte[] Body { get; set; }
@@ -115,6 +116,21 @@ namespace IngressServiceAPI.API
             }
         }
 
+        public string Version
+        {
+            get
+            {
+                string version;
+                Headers.TryGetValue(HeaderKey_Version, out version);
+                return version;
+            }
+
+            set
+            {
+                Headers[HeaderKey_Version] = value;
+            }
+        }
+
         public Message()
         {
             Headers = new Dictionary<string, string>();
@@ -186,7 +202,7 @@ namespace IngressServiceAPI.API
     public enum MessageType
     {
         Data = 0,
-        Stream,
+        Container,
         Type
     }
 
