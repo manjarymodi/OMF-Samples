@@ -6,10 +6,6 @@ These OMF samples are introductory, language-specific examples demonstrating how
 
 More information on OMF can be found [here.](http://omf-docs.osisoft.com)
 
-Looking for something else?  To find the OMF sample code used for the 2017 OSIsoft TechCon labs, use the below URL:
-
-Coming soon!
-
 ##License
 
 Copyright 2016 OSIsoft, LLC
