@@ -12,8 +12,6 @@
 #See the License for the specific language governing permissions and
 #limitations under the License.
 
-# NOTE: this script was designed using the v1.2 version of the OMF specification, as outlined here:
-# http://omf-docs.readthedocs.io/
 
 # ************************************************************************
 # Import necessary packages
@@ -72,7 +70,6 @@ NUMBER_OF_SECONDS_BETWEEN_VALUE_MESSAGES = 2
 # http://<host/ip>:<port>/ingress/messages
 # For example, "https://myservername:8118/ingress/messages"
 RELAY_URL = "http://localhost:8118/ingress/messages"
-# Note: as of the PI Connector Relay v 1.2, the URL should use https instead of http
 
 # Specify the producer token; this will be the parent AF element
 # beneath which the new AF element will appear,
@@ -236,7 +233,7 @@ TYPES_MESSAGE_JSON = [
 
     # This values type is going to be used to send real-time values; feel free to rename the
     # values from "Raw Sensor Reading 1" to, say, "Temperature", or "Pressure"
-    # Note: as of the PI Connector Relay v 1.2,
+    # Note:
     # all keywords ("id", "type", "classification", etc. are case sensitive!)
     # For a list of the specific keywords used in these messages,
     # see http://omf-docs.readthedocs.io/
