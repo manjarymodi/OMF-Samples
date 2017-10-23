@@ -12,6 +12,9 @@
 #See the License for the specific language governing permissions and
 #limitations under the License.
 
+# NOTE: this script was designed using the v1.0
+# version of the OMF specification, as outlined here:
+# http://omf-docs.readthedocs.io/en/v1.0/index.html
 
 # ************************************************************************
 # Import necessary packages
