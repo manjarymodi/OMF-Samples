@@ -15,7 +15,7 @@ namespace IngressServiceAPI.API
         public const string HeaderKey_ProducerToken = "producertoken";
         public const string HeaderKey_MessageType = "messagetype";
         public const string HeaderKey_MessageFormat = "messageformat";
-        public const string HeaderKey_MessageCompression = "messagecompression";
+        public const string HeaderKey_MessageCompression = "compression";
         public const string HeaderKey_Action = "action";
         public const string HeaderKey_Version = "omfversion";
 
