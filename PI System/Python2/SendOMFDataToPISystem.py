@@ -69,29 +69,19 @@ DATA_VALUES_CONTAINER_ID = (DEVICE_NAME + "_data_values_container")
 # Specify the number of seconds to sleep in between value messages
 NUMBER_OF_SECONDS_BETWEEN_VALUE_MESSAGES = 2
 
-# Specify whether you're sending data to OSIsoft cloud services or not
-SEND_DATA_TO_OSISOFT_CLOUD_SERVICES = False
-
 # Specify the address of the destination endpoint; it should be of the form
 # http://<host/ip>:<port>/ingress/messages
 # For example, "https://myservername:8118/ingress/messages"
-TARGET_URL = "http://localhost:8118/ingress/messages"
-# !!! Note: if sending data to OSIsoft cloud services,
-# uncomment the below line in order to set the target URL to the OCS OMF endpoint:
-#TARGET_URL = "https://qi-data.osisoft.com/api/omf"
+RELAY_URL = "http://localhost:8118/ingress/messages"
 
 # Specify the producer token; this will be the parent AF element
 # beneath which the new AF element will appear,
 # and it will be part of the prefix of all PI Points that are created by this script
 PRODUCER_TOKEN = "OMFv1"
 #PRODUCER_TOKEN = "778408" # An example
-# !!! Note: if sending data to OSIsoft cloud services, the producer token should be the
-# security token obtained for a particular Tenant and Publisher; see
-# http://qi-docs.readthedocs.io/en/latest/OMF_Ingress_Specification.html#headers
-#PRODUCER_TOKEN = ""
 
 # ************************************************************************
-# Specify options for sending web requests to the target
+# Specify options for sending web requests to the target PI System
 # ************************************************************************
 
 # If self-signed certificates are used (true by default),
@@ -190,21 +180,19 @@ def send_omf_message_to_endpoint(action, message_type, message_json):
             'messageformat': 'JSON',
             'omfversion': '1.0'
         }
-        # !!! Note: if desired, ucomment the below line to print the outgoing message
-        print('\nOutgoing message: ' + json.dumps(message_json));
         # Send the request, and collect the response; json.dumps is used to
         # properly format the message JSON so that it can be sent as a web request
         response = requests.post(
-            TARGET_URL,
+            RELAY_URL,
             headers=web_request_header,
             data=json.dumps(message_json),
             verify=VERIFY_SSL,
             timeout=WEB_REQUEST_TIMEOUT_SECONDS
         )
         # Print a debug message, if desired; note: you should receive a
-        # response code 200 or 202 if the request was successful!
+        # response code 202 if the request was successful!
         print(
-            'Response from sending a message of type ' +
+            'Response from relay from sending a message of type ' +
             '"{0}" with action "{1}": {2} {3}'.format(
                 message_type,
                 action,
@@ -227,16 +215,16 @@ if not VERIFY_SSL:
     requests.packages.urllib3.disable_warnings()
 
 print(
-    '\n--- Setup: targeting endpoint "' + TARGET_URL + '"...' +
+    '\n--- Setup: targeting endpoint "' + RELAY_URL + '"...' +
     '\n--- Now sending types, defining containers, and creating assets and links...' +
-    '\n--- (Note: a successful message will return a response code "202 or 200".)\n'
+    '\n--- (Note: a successful message will return a response code "202".)\n'
 )
 
 # ************************************************************************
 # Create a JSON packet to define the types of streams that will be sent
 # ************************************************************************
 
-DYNAMIC_TYPES_MESSAGE_JSON = [
+TYPES_MESSAGE_JSON = [
 
     # ************************************************************************
     # There are several different message types that will be used by this script, but
@@ -275,56 +263,45 @@ DYNAMIC_TYPES_MESSAGE_JSON = [
             #   "type": "string"
             #}
         }
+    },
+    # This asset type is used to define a PI AF Element that will be created;
+    # this type also defines two static string attributes that will be created
+    # as well; feel free to rename these or add additional
+    # static attributes for each Element (PI Point attributes will be added later)
+    # The name of this type will also end up being part of the name of the PI AF Element template
+    # that is automatically created
+    {
+        "id": ASSETS_MESSAGE_TYPE_NAME,
+        "type": "object",
+        "classification": "static",
+        "properties": {
+            "Name": {
+                "type": "string",
+                "isindex": True
+            },
+            "Device Type": {
+                "type": "string"
+            },
+            "Location": {
+                "type": "string"
+            },
+            "Data Ingress Method": {
+                "type": "string"
+            }
+            # For example, to add a number-type static
+            # attribute for the device model, you would add
+            # "Model": {
+            #   "type": "number"
+            #}
+        }
     }
 ]
 
 # ************************************************************************
-# Send the DYNAMIC types message, so that these types can be referenced in all later messages
+# Send the types message, so that these types can be referenced in all later messages
 # ************************************************************************
 
-send_omf_message_to_endpoint("create", "Type", DYNAMIC_TYPES_MESSAGE_JSON)
-
-# !!! Note: if sending data to OCS, static types are not included!
-if not SEND_DATA_TO_OSISOFT_CLOUD_SERVICES:
-    STATIC_TYPES_MESSAGE_JSON = [
-        # This asset type is used to define a PI AF Element that will be created;
-        # this type also defines two static string attributes that will be created
-        # as well; feel free to rename these or add additional
-        # static attributes for each Element (PI Point attributes will be added later)
-        # The name of this type will also end up being part of the name of the PI AF Element template
-        # that is automatically created
-        {
-            "id": ASSETS_MESSAGE_TYPE_NAME,
-            "type": "object",
-            "classification": "static",
-            "properties": {
-                "Name": {
-                    "type": "string",
-                    "isindex": True
-                },
-                "Device Type": {
-                    "type": "string"
-                },
-                "Location": {
-                    "type": "string"
-                },
-                "Data Ingress Method": {
-                    "type": "string"
-                }
-                # For example, to add a number-type static
-                # attribute for the device model, you would add
-                # "Model": {
-                #   "type": "number"
-                #}
-            }
-        }
-    ]
-
-    # ************************************************************************
-    # Send the STATIC types message, so that these types can be referenced in all later messages
-    # ************************************************************************
-
-    send_omf_message_to_endpoint("create", "Type", STATIC_TYPES_MESSAGE_JSON)
+send_omf_message_to_endpoint("create", "Type", TYPES_MESSAGE_JSON)
 
 # ************************************************************************
 # Create a JSON packet to define containerids and the type
@@ -348,73 +325,71 @@ CONTAINERS_MESSAGE_JSON = [
 
 send_omf_message_to_endpoint("create", "Container", CONTAINERS_MESSAGE_JSON)
 
-# !!! Note: if sending data to OCS, static types are not included!
-if not SEND_DATA_TO_OSISOFT_CLOUD_SERVICES:
-    # ************************************************************************
-    # Create a JSON packet to containing the asset and
-    # linking data for the PI AF asset that will be made
-    # ************************************************************************
+# ************************************************************************
+# Create a JSON packet to containing the asset and
+# linking data for the PI AF asset that will be made
+# ************************************************************************
 
-    # Here is where you can specify values for the static PI AF attributes;
-    # in this case, we're auto-populating the Device Type,
-    # but you can manually hard-code in values if you wish
-    # we also add the LINKS to be made, which will both position the new PI AF
-    # Element, so it will show up in AF, and will associate the PI Points
-    # that will be created with that Element
-    ASSETS_AND_LINKS_MESSAGE_JSON = [
-        {
-            # This will end up creating a new PI AF Element with
-            # this specific name and static attribute values
-            "typeid": ASSETS_MESSAGE_TYPE_NAME,
-            "values": [
-                {
-                    "Name": NEW_AF_ELEMENT_NAME,
-                    "Device Type": (
-                        platform.machine() + " - " + platform.platform() + " - " + platform.processor()
-                    ),
-                    "Location": DEVICE_LOCATION,
-                    "Data Ingress Method": "OMF"
-                }
-            ]
-        },
-        {
-            "typeid": "__Link",
-            "values": [
-                # This first link will locate such a newly created AF Element under
-                # the root PI element targeted by the PI Connector in your target AF database
-                # This was specfied in the Connector Relay Admin page; note that a new
-                # parent element, with the same name as the PRODUCER_TOKEN, will also be made
-                {
-                    "Source": {
-                        "typeid": ASSETS_MESSAGE_TYPE_NAME,
-                        "index": "_ROOT"
-                    },
-                    "Target": {
-                        "typeid": ASSETS_MESSAGE_TYPE_NAME,
-                        "index": NEW_AF_ELEMENT_NAME
-                    }
+# Here is where you can specify values for the static PI AF attributes;
+# in this case, we're auto-populating the Device Type,
+# but you can manually hard-code in values if you wish
+# we also add the LINKS to be made, which will both position the new PI AF
+# Element, so it will show up in AF, and will associate the PI Points
+# that will be created with that Element
+ASSETS_AND_LINKS_MESSAGE_JSON = [
+    {
+        # This will end up creating a new PI AF Element with
+        # this specific name and static attribute values
+        "typeid": ASSETS_MESSAGE_TYPE_NAME,
+        "values": [
+            {
+                "Name": NEW_AF_ELEMENT_NAME,
+                "Device Type": (
+                    platform.machine() + " - " + platform.platform() + " - " + platform.processor()
+                ),
+                "Location": DEVICE_LOCATION,
+                "Data Ingress Method": "OMF"
+            }
+        ]
+    },
+    {
+        "typeid": "__Link",
+        "values": [
+            # This first link will locate such a newly created AF Element under
+            # the root PI element targeted by the PI Connector in your target AF database
+            # This was specfied in the Connector Relay Admin page; note that a new
+            # parent element, with the same name as the PRODUCER_TOKEN, will also be made
+            {
+                "Source": {
+                    "typeid": ASSETS_MESSAGE_TYPE_NAME,
+                    "index": "_ROOT"
                 },
-                # This second link will map new PI Points (created by messages
-                # sent to the data values container) to a newly create element
-                {
-                    "Source": {
-                        "typeid": ASSETS_MESSAGE_TYPE_NAME,
-                        "index": NEW_AF_ELEMENT_NAME
-                    },
-                    "Target": {
-                        "containerid": DATA_VALUES_CONTAINER_ID
-                    }
+                "Target": {
+                    "typeid": ASSETS_MESSAGE_TYPE_NAME,
+                    "index": NEW_AF_ELEMENT_NAME
                 }
-            ]
-        }
-    ]
+            },
+            # This second link will map new PI Points (created by messages
+            # sent to the data values container) to a newly create element
+            {
+                "Source": {
+                    "typeid": ASSETS_MESSAGE_TYPE_NAME,
+                    "index": NEW_AF_ELEMENT_NAME
+                },
+                "Target": {
+                    "containerid": DATA_VALUES_CONTAINER_ID
+                }
+            }
+        ]
+    }
+]
 
-    # ************************************************************************
-    # Send the message to create the PI AF asset; it won't appear in PI AF,
-    # though, because it hasn't yet been positioned...
-    # ************************************************************************
+# ************************************************************************
+# Send the message to create the PI AF asset; it won't appear in PI AF,
+# though, because it hasn't yet been positioned...
+# ************************************************************************
 
-    send_omf_message_to_endpoint("create", "Data", ASSETS_AND_LINKS_MESSAGE_JSON)
+send_omf_message_to_endpoint("create", "Data", ASSETS_AND_LINKS_MESSAGE_JSON)
 
 # ************************************************************************
 # Initialize sensors prior to sending data (if needed), using the function defined earlier
@@ -429,19 +404,18 @@ initialize_sensors()
 
 print(
     '\n--- Now sending live data every ' + str(NUMBER_OF_SECONDS_BETWEEN_VALUE_MESSAGES) +
-    ' second(s) for device "' + NEW_AF_ELEMENT_NAME + '"... (press CTRL+C to quit at any time)\n'
+    ' second(s) for device "' + NEW_AF_ELEMENT_NAME + '"... (press CTRL+C to quit at any time)'
 )
-if not SEND_DATA_TO_OSISOFT_CLOUD_SERVICES:
-    print(
-        '--- (Look for a new AF Element named "' + NEW_AF_ELEMENT_NAME +
-        '" beneath the element "' + PRODUCER_TOKEN + '".)\n'
-    )
+print(
+    '--- (Look for a new AF Element named "' + NEW_AF_ELEMENT_NAME +
+    '" beneath the element "' + PRODUCER_TOKEN + '".)\n'
+)
 while True:
     # Call the custom function that builds a JSON object that
     # contains new data values; see the beginning of this script
     VALUES_MESSAGE_JSON = create_data_values_message()
 
-    # Send the JSON message to the target URL
+    # Send the JSON message to the relay
     send_omf_message_to_endpoint("create", "Data", VALUES_MESSAGE_JSON)
 
     # Send the next message after the required interval
