@@ -1,4 +1,4 @@
-#Copyright 2017 OSIsoft, LLC
+#Copyright 2018 OSIsoft, LLC
 #
 #Licensed under the Apache License, Version 2.0 (the "License");
 #you may not use this file except in compliance with the License.
@@ -433,8 +433,7 @@ print(
 )
 if not SEND_DATA_TO_OSISOFT_CLOUD_SERVICES:
     print(
-        '--- (Look for a new AF Element named "' + NEW_AF_ELEMENT_NAME +
-        '" beneath the element "' + PRODUCER_TOKEN + '".)\n'
+        '--- (Look for a new AF Element named "' + NEW_AF_ELEMENT_NAME + '".)\n'
     )
 while True:
     # Call the custom function that builds a JSON object that
