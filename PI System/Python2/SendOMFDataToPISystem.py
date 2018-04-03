@@ -1,4 +1,4 @@
-#Copyright 2017 OSIsoft, LLC
+#Copyright 2018 OSIsoft, LLC
 #
 #Licensed under the Apache License, Version 2.0 (the "License");
 #you may not use this file except in compliance with the License.
@@ -80,9 +80,7 @@ TARGET_URL = "http://localhost:8118/ingress/messages"
 # uncomment the below line in order to set the target URL to the OCS OMF endpoint:
 #TARGET_URL = "https://qi-data.osisoft.com/api/omf"
 
-# Specify the producer token; this will be the parent AF element
-# beneath which the new AF element will appear,
-# and it will be part of the prefix of all PI Points that are created by this script
+# Specify the producer token, a unique token used to identify and authorize a given OMF producer. Consult the OSIsoft Cloud Services or PI Connector Relay documentation for further information.
 PRODUCER_TOKEN = "OMFv1"
 #PRODUCER_TOKEN = "778408" # An example
 # !!! Note: if sending data to OSIsoft cloud services, the producer token should be the
@@ -433,8 +431,7 @@ print(
 )
 if not SEND_DATA_TO_OSISOFT_CLOUD_SERVICES:
     print(
-        '--- (Look for a new AF Element named "' + NEW_AF_ELEMENT_NAME +
-        '" beneath the element "' + PRODUCER_TOKEN + '".)\n'
+        '--- (Look for a new AF Element named "' + NEW_AF_ELEMENT_NAME + '".)\n'
     )
 while True:
     # Call the custom function that builds a JSON object that
