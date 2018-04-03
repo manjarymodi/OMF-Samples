@@ -80,9 +80,7 @@ TARGET_URL = "http://localhost:8118/ingress/messages"
 # uncomment the below line in order to set the target URL to the OCS OMF endpoint:
 #TARGET_URL = "https://qi-data.osisoft.com/api/omf"
 
-# Specify the producer token; this will be the parent AF element
-# beneath which the new AF element will appear,
-# and it will be part of the prefix of all PI Points that are created by this script
+# Specify the producer token, a unique token used to identify and authorize a given OMF producer. Consult the OSIsoft Cloud Services or PI Connector Relay documentation for further information.
 PRODUCER_TOKEN = "OMFv1"
 #PRODUCER_TOKEN = "778408" # An example
 # !!! Note: if sending data to OSIsoft cloud services, the producer token should be the
