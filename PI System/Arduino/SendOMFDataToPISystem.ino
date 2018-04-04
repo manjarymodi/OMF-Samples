@@ -87,7 +87,7 @@ boolean SEND_DATA_TO_OSISOFT_CLOUD_SERVICES = false;
 String TARGET_URL = "https://lopezpiserver:777/ingress/messages";
 // !!! Note: if sending data to OSIsoft cloud services,
 // uncomment the below line in order to set the target URL to the OCS OMF endpoint:
-//TARGET_URL = "https://qi-data.osisoft.com/api/omf"
+//TARGET_URL = "https://dat-a.osisoft.com/api/omf"
 
 // Specify the producer token, a unique token used to identify and authorize a given OMF producer. Consult the OSIsoft Cloud Services or PI Connector Relay documentation for further information.
 String PRODUCER_TOKEN = "OMFv1";
@@ -96,18 +96,6 @@ String PRODUCER_TOKEN = "OMFv1";
 // security token obtained for a particular Tenant and Publisher; see
 // http://qi-docs.readthedocs.io/en/latest/OMF_Ingress_Specification.html//headers
 //PRODUCER_TOKEN = ""
-
-// ************************************************************************
-// Specify options for sending web requests to the target
-// ************************************************************************
-
-// If self-signed certificates are used (true by default),
-// do not verify HTTPS SSL certificates; normally, leave this as is
-boolean VERIFY_SSL = false;
-
-// Specify the timeout, in seconds, for sending web requests
-// (if it takes longer than this to send a message, an error will be thrown)
-//int WEB_REQUEST_TIMEOUT_SECONDS = 30;
 
 // ************************************************************************
 // Other vars
