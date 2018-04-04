@@ -98,18 +98,6 @@ String PRODUCER_TOKEN = "OMFv1";
 //PRODUCER_TOKEN = ""
 
 // ************************************************************************
-// Specify options for sending web requests to the target
-// ************************************************************************
-
-// If self-signed certificates are used (true by default),
-// do not verify HTTPS SSL certificates; normally, leave this as is
-boolean VERIFY_SSL = false;
-
-// Specify the timeout, in seconds, for sending web requests
-// (if it takes longer than this to send a message, an error will be thrown)
-//int WEB_REQUEST_TIMEOUT_SECONDS = 30;
-
-// ************************************************************************
 // Other vars
 // ************************************************************************
 
