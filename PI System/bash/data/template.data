@@ -1,0 +1,101 @@
+[
+  {
+    "containerid": "VStr_vRPM_Engine_1",
+    "values": [
+      {
+        "IndexedDateTime": "REPLACEWITHUTCDATETIME",
+        "vRPM": 5083
+      }
+    ]
+  },
+  {
+    "containerid": "VStr_vCoolantTemp_Engine_2",
+    "values": [
+      {
+        "IndexedDateTime": "REPLACEWITHUTCDATETIME",
+        "vCoolantTemp": 206
+      }
+    ]
+  },
+  {
+    "containerid": "VStr_vVehicleStatus_Vehicle_1",
+    "values": [
+      {
+        "IndexedDateTime": "REPLACEWITHUTCDATETIME",
+        "vVehicleStatus": "Parked"
+      }
+    ]
+  },
+  {
+    "containerid": "VStr_vVehicleStatus_Vehicle_2",
+    "values": [
+      {
+        "IndexedDateTime": "REPLACEWITHUTCDATETIME",
+        "vVehicleStatus": "Stopped"
+      }
+    ]
+  },
+  {
+    "containerid": "VStr_vVehicleStatus_Vehicle_3",
+    "values": [
+      {
+        "IndexedDateTime": "REPLACEWITHUTCDATETIME",
+        "vVehicleStatus": "Running"
+      }
+    ]
+  },
+  {
+    "containerid": "VStr_vVehicleFloat_Vehicle_1",
+    "values": [
+      {
+        "IndexedDateTime": "REPLACEWITHUTCDATETIME",
+        "vVehicleFloat": 201.6
+      }
+    ]
+  },
+  {
+    "containerid": "VStr_vVehicleFloat_Vehicle_2",
+    "values": [
+      {
+        "IndexedDateTime": "REPLACEWITHUTCDATETIME",
+        "vVehicleFloat": 19.96
+      }
+    ]
+  },
+  {
+    "containerid": "VStr_vVehicleFloat_Vehicle_3",
+    "values": [
+      {
+        "IndexedDateTime": "REPLACEWITHUTCDATETIME",
+        "vVehicleFloat": 7.77
+      }
+    ]
+  },
+  {
+    "containerid": "VStr_vVehicleInt_Vehicle_1",
+    "values": [
+      {
+        "IndexedDateTime": "REPLACEWITHUTCDATETIME",
+        "vVehicleInt": 545
+      }
+    ]
+  },
+  {
+    "containerid": "VStr_vVehicleInt_Vehicle_2",
+    "values": [
+      {
+        "IndexedDateTime": "REPLACEWITHUTCDATETIME",
+        "vVehicleInt": 777
+      }
+    ]
+  },
+  {
+    "containerid": "VStr_vVehicleInt_Vehicle_3",
+    "values": [
+      {
+        "IndexedDateTime": "REPLACEWITHUTCDATETIME",
+        "vVehicleInt": 1980
+      }
+    ]
+  }
+]

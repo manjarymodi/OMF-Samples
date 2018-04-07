@@ -1,0 +1,32 @@
+#
+# @(#) runit - example to call omfDemo script
+#
+#  ©2018 OSIsoft, LLC. All Rights Reserved.
+#
+#  No Warranty or Liability.  The OSIsoft Samples contained herein are being supplied to Licensee
+#  “AS IS” without any warranty of any kind.  OSIsoft DISCLAIMS ALL EXPRESS AND IMPLIED WARRANTIES,
+#  INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+#  PURPOSE and NONINFRINGEMENT. In no event will OSIsoft be liable to Licensee or to any third party
+#  for damages of any kind arising from Licensee’s use of the OSIsoft Samples OR OTHERWISE, including
+#  but not limited to direct, indirect, special, incidental and consequential damages, and Licensee
+#  expressly assumes the risk of all such damages.  FURTHER, THE OSIsoft SAMPLES ARE NOT ELIGIBLE FOR
+#  SUPPORT UNDER EITHER OSISOFT’S STANDARD OR ENTERPRISE LEVEL SUPPORT AGREEMENTS
+#
+
+# Usage:
+# add the security token to the file called token, uncomment the appropriate ./omfDemo line for
+# the required destination, update arguments, save and run!
+# Note: execute permissions may need to be set on the file runit and omfDemo:
+#  chmod +ux runit omfDemo
+#
+# Send to PI Connector Relay (/ingressmessages is the default, no need to specify)
+#./omfDemo h 8118
+#
+# Ssend to Edge Data Store 
+#./omfDemo human 5000 /edge/omf/tenants/thetenant/namespaces/thenamespace
+#
+# Send to OSIsoft Cloud Services
+#./omfDemo historianmain.osipi.com 443 /api/omf
+#
+# run in debug mode listing each command and send to PI Connector Relay
+#sh -x ./omfDemo h 8118
