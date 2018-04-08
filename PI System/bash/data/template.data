@@ -9,11 +9,47 @@
     ]
   },
   {
+    "containerid": "VStr_vRPM_Engine_2",
+    "values": [
+      {
+        "IndexedDateTime": "REPLACEWITHUTCDATETIME",
+        "vRPM": 3810 
+      }
+    ]
+  },
+  {
+    "containerid": "VStr_vRPM_Engine_3",
+    "values": [
+      {
+        "IndexedDateTime": "REPLACEWITHUTCDATETIME",
+        "vRPM": 4381
+      }
+    ]
+  },
+  {
+    "containerid": "VStr_vCoolantTemp_Engine_1",
+    "values": [
+      {
+        "IndexedDateTime": "REPLACEWITHUTCDATETIME",
+        "vCoolantTemp": 187 
+      }
+    ]
+  },
+  {
     "containerid": "VStr_vCoolantTemp_Engine_2",
     "values": [
       {
         "IndexedDateTime": "REPLACEWITHUTCDATETIME",
         "vCoolantTemp": 206
+      }
+    ]
+  },
+  {
+    "containerid": "VStr_vCoolantTemp_Engine_3",
+    "values": [
+      {
+        "IndexedDateTime": "REPLACEWITHUTCDATETIME",
+        "vCoolantTemp": 193
       }
     ]
   },
@@ -94,7 +130,7 @@
     "values": [
       {
         "IndexedDateTime": "REPLACEWITHUTCDATETIME",
-        "vVehicleInt": 1980
+        "vVehicleInt": 1970
       }
     ]
   }
