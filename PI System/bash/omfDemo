@@ -43,14 +43,13 @@ if [ ! -f token ] ; then
 fi
 token=`head -1 token`
 
-# The subdirectory data contains files that confirm to the OSIsoft Message Format
-# Loop through the files, sending that file to the OMF REST endpoing
+# The subdirectory data contains files that conform to the OSIsoft Message Format
+# Loop through each files, sending the contents to the OMF REST endpoint
 
 for file in type container data-assets data-links data
 do
    # if file has a '-', remove suffix and use the prefix as the messagetype
    payload=`echo $file | cut -f1 -d'-'`
-   #curl -k -X POST \
    curl -k \
       -w "Sending: $payload\nhttp status code: %{http_code}\n" \
       -H "producertoken: $token" \
