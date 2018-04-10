@@ -55,7 +55,7 @@ const String DATA_VALUES_CONTAINER_ID = "Photon " + System.deviceID() + " Data";
 const String DATA_VALUES_MESSAGE_TYPE_NAME = "Photon Button Dynamic Type";
 
 // Specify the number of seconds to sleep in between value messages
-const int DELAY_IN_BETWEENREADS_MILLISECONDS = 2*1000;
+const int DELAY_IN_BETWEENREADS_MILLISECONDS = 1*1000;
 
 // ************************************************************************
 // Other vars
@@ -95,19 +95,20 @@ void setup() {
 
 void loop() {
     
-    // Read acceleration, along a range of -127 to +127
-    int xValue = b.readX();
-    int yValue = b.readY();
-    int zValue = b.readZ();
+    // Read acceleration, along a range of -127 (-2G) to +127 (+2G)
+    float xValue = b.readX();
+    float yValue = b.readY();
+    float zValue = b.readZ();
 
     // This will make the color of the Button change with what direction you shake it
     // The abs() part takes the absolute value, because negatives don't work well
-    b.allLedsOn(abs(xValue), abs(yValue), abs(zValue));
+    b.allLedsOn(abs((int)xValue), abs((int)yValue), abs((int)zValue));
     
     // Securely publish the data to a Particle Webhook that will relay it to OCS
     // (Prior to this, these webhooks should be set up with the OCS URL, OMF headers, and producer token)
+    // Note: values are multiplied by 2/127 to convert them into units of G force
     Particle.publish("CREATE_OMF_DATA_MESSAGE", 
-        ("{\"contId\":\"" + DATA_VALUES_CONTAINER_ID + "\", \"xValue\":" + (String)(xValue) + ", \"yValue\":" + (String)(yValue) + ", \"zValue\":" + (String)(zValue) + "}"),
+        ("{\"contId\":\"" + DATA_VALUES_CONTAINER_ID + "\", \"xValue\":" + (String)(xValue*2/127) + ", \"yValue\":" + (String)(yValue*2/127) + ", \"zValue\":" + (String)(zValue*2/127) + "}"),
         PRIVATE);
 
     // Send the next message after the required interval
@@ -134,7 +135,7 @@ void loop() {
     "noDefaults": true,
     "rejectUnauthorized": true,
     "headers": {
-        "producertoken": "kjalhdfkasdjfaskjdfalskdjfahskljdf",
+        "producertoken": "asdfasdfafdadfasf",
         "messagetype": "type",
         "action": "create",
         "omfversion": "1.0",
@@ -176,7 +177,7 @@ void loop() {
     "noDefaults": true,
     "rejectUnauthorized": true,
     "headers": {
-        "producertoken": "kjalhdfkasdjfaskjdfalskdjfahskljdf",
+        "producertoken": "asdfasdfafdadfasf",
         "messagetype": "container",
         "action": "create",
         "omfversion": "1.0"
@@ -200,7 +201,7 @@ void loop() {
     "noDefaults": true,
     "rejectUnauthorized": true,
     "headers": {
-        "producertoken": "kjalhdfkasdjfaskjdfalskdjfahskljdf",
+        "producertoken": "asdfasdfafdadfasf",
         "messagetype": "data",
         "action": "create",
         "omfversion": "1.0"
