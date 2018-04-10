@@ -213,6 +213,7 @@ public class SendOMFDataToPISystem {
 	        try(OutputStream os = myRequest.getOutputStream()) {
 	            os.write(message_json.getBytes(StandardCharsets.UTF_8));
 	        }
+			System.out.println("Response code: " + myRequest.getResponseCode());
 	    } catch (Exception ex) {
 	        // Log any error, if it occurs
 	        System.out.println((java.time.LocalDateTime.now()) + " Error during web request: " + ex.getMessage());
