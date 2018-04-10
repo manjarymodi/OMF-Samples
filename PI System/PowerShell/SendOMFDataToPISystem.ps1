@@ -212,7 +212,7 @@ function send_omf_message_to_endpoint
 write-host (
 	"`n--- Setup: targeting endpoint `"" + $TARGET_URL + "`"..." +
 	"`n--- Now sending types, defining containers, and creating assets and links..." +
-	"`n--- (Note: a successful message will return a response code `"202 or 200`".)`n"
+	"`n--- (Note: a successful message will return a 20X response code.)`n"
 );
 
 # ************************************************************************

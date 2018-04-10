@@ -213,6 +213,7 @@ public class SendOMFDataToPISystem {
 	        try(OutputStream os = myRequest.getOutputStream()) {
 	            os.write(message_json.getBytes(StandardCharsets.UTF_8));
 	        }
+			System.out.println("Response code: " + myRequest.getResponseCode());
 	    } catch (Exception ex) {
 	        // Log any error, if it occurs
 	        System.out.println((java.time.LocalDateTime.now()) + " Error during web request: " + ex.getMessage());
@@ -272,7 +273,7 @@ public class SendOMFDataToPISystem {
 		System.out.println(
 		    "\n--- Setup: targeting endpoint \"" + TARGET_URL + "\"..." +
 		    "\n--- Now sending types, defining containers, and creating assets and links..." +
-		    "\n--- (Note: a successful message will return a response code \"202 or 200\".)\n"
+		    "\n--- (Note: a successful message will return a 20X response code.)\n"
 		);
 
 		// ************************************************************************
