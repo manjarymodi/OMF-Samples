@@ -1,0 +1,101 @@
+[
+  {
+    "containerid": "VStr_vRPM_Engine_1",
+    "values": [
+      {
+        "IndexedDateTime": "2018-04-07T03:05:34Z",
+        "vRPM": 5083
+      }
+    ]
+  },
+  {
+    "containerid": "VStr_vCoolantTemp_Engine_2",
+    "values": [
+      {
+        "IndexedDateTime": "2018-04-07T03:05:34Z",
+        "vCoolantTemp": 206
+      }
+    ]
+  },
+  {
+    "containerid": "VStr_vVehicleStatus_Vehicle_1",
+    "values": [
+      {
+        "IndexedDateTime": "2018-04-07T03:05:34Z",
+        "vVehicleStatus": "Parked"
+      }
+    ]
+  },
+  {
+    "containerid": "VStr_vVehicleStatus_Vehicle_2",
+    "values": [
+      {
+        "IndexedDateTime": "2018-04-07T03:05:34Z",
+        "vVehicleStatus": "Stopped"
+      }
+    ]
+  },
+  {
+    "containerid": "VStr_vVehicleStatus_Vehicle_3",
+    "values": [
+      {
+        "IndexedDateTime": "2018-04-07T03:05:34Z",
+        "vVehicleStatus": "Running"
+      }
+    ]
+  },
+  {
+    "containerid": "VStr_vVehicleFloat_Vehicle_1",
+    "values": [
+      {
+        "IndexedDateTime": "2018-04-07T03:05:34Z",
+        "vVehicleFloat": 201.6
+      }
+    ]
+  },
+  {
+    "containerid": "VStr_vVehicleFloat_Vehicle_2",
+    "values": [
+      {
+        "IndexedDateTime": "2018-04-07T03:05:34Z",
+        "vVehicleFloat": 19.96
+      }
+    ]
+  },
+  {
+    "containerid": "VStr_vVehicleFloat_Vehicle_3",
+    "values": [
+      {
+        "IndexedDateTime": "2018-04-07T03:05:34Z",
+        "vVehicleFloat": 7.77
+      }
+    ]
+  },
+  {
+    "containerid": "VStr_vVehicleInt_Vehicle_1",
+    "values": [
+      {
+        "IndexedDateTime": "2018-04-07T03:05:34Z",
+        "vVehicleInt": 545
+      }
+    ]
+  },
+  {
+    "containerid": "VStr_vVehicleInt_Vehicle_2",
+    "values": [
+      {
+        "IndexedDateTime": "2018-04-07T03:05:34Z",
+        "vVehicleInt": 777
+      }
+    ]
+  },
+  {
+    "containerid": "VStr_vVehicleInt_Vehicle_3",
+    "values": [
+      {
+        "IndexedDateTime": "2018-04-07T03:05:34Z",
+        "vVehicleInt": 1980
+      }
+    ]
+  }
+]
