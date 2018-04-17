@@ -78,7 +78,7 @@ SEND_DATA_TO_OSISOFT_CLOUD_SERVICES = False
 TARGET_URL = "http://localhost:8118/ingress/messages"
 # !!! Note: if sending data to OSIsoft cloud services,
 # uncomment the below line in order to set the target URL to the OCS OMF endpoint:
-#TARGET_URL = "https://qi-data.osisoft.com/api/omf"
+#TARGET_URL = "https://dat-a.osisoft.com/api/omf"
 
 # Specify the producer token, a unique token used to identify and authorize a given OMF producer. Consult the OSIsoft Cloud Services or PI Connector Relay documentation for further information.
 PRODUCER_TOKEN = "OMFv1"

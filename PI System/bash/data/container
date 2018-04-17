@@ -1,0 +1,74 @@
+[
+  {
+    "id": "VStr_vRPM_Engine_1",
+    "typeid": "vRPMType"
+  },
+  {
+    "id": "VStr_vRPM_Engine_2",
+    "typeid": "vRPMType"
+  },
+  {
+    "id": "VStr_vRPM_Engine_3",
+    "typeid": "vRPMType"
+  },
+  {
+    "id": "VStr_vCoolantTemp_Engine_1",
+    "typeid": "vCoolantTempType"
+  },
+  {
+    "id": "VStr_vCoolantTemp_Engine_2",
+    "typeid": "vCoolantTempType"
+  },
+  {
+    "id": "VStr_vCoolantTemp_Engine_3",
+    "typeid": "vCoolantTempType"
+  },
+  {
+    "id": "VStr_vVehicleMeas_Vehicle_1",
+    "typeid": "vVehicleMeasType"
+  },
+  {
+    "id": "VStr_vVehicleMeas_Vehicle_2",
+    "typeid": "vVehicleMeasType"
+  },
+  {
+    "id": "VStr_vVehicleMeas_Vehicle_3",
+    "typeid": "vVehicleMeasType"
+  },
+  {
+    "id": "VStr_vVehicleStatus_Vehicle_1",
+    "typeid": "vVehicleStatusType"
+  },
+  {
+    "id": "VStr_vVehicleStatus_Vehicle_2",
+    "typeid": "vVehicleStatusType"
+  },
+  {
+    "id": "VStr_vVehicleStatus_Vehicle_3",
+    "typeid": "vVehicleStatusType"
+  },
+  {
+    "id": "VStr_vVehicleFloat_Vehicle_1",
+    "typeid": "vVehicleFloatType"
+  },
+  {
+    "id": "VStr_vVehicleFloat_Vehicle_2",
+    "typeid": "vVehicleFloatType"
+  },
+  {
+    "id": "VStr_vVehicleFloat_Vehicle_3",
+    "typeid": "vVehicleFloatType"
+  },
+  {
+    "id": "VStr_vVehicleInt_Vehicle_1",
+    "typeid": "vVehicleIntType"
+  },
+  {
+    "id": "VStr_vVehicleInt_Vehicle_2",
+    "typeid": "vVehicleIntType"
+  },
+  {
+    "id": "VStr_vVehicleInt_Vehicle_3",
+    "typeid": "vVehicleIntType"
+  }
+]

@@ -1,0 +1,308 @@
+[
+  {
+    "typeid": "__Link",
+    "values": [
+      {
+        "source": {
+          "typeid": "VehicleType",
+          "index": "_ROOT"
+        },
+        "target": {
+          "typeid": "VehicleType",
+          "index": "Vehicle_1"
+        }
+      },
+      {
+        "source": {
+          "typeid": "VehicleType",
+          "index": "_ROOT"
+        },
+        "target": {
+          "typeid": "VehicleType",
+          "index": "Vehicle_2"
+        }
+      },
+      {
+        "source": {
+          "typeid": "VehicleType",
+          "index": "_ROOT"
+        },
+        "target": {
+          "typeid": "VehicleType",
+          "index": "Vehicle_3"
+        }
+      }
+    ]
+  },
+  {
+    "typeid": "__Link",
+    "values": [
+      {
+        "source": {
+          "typeid": "VehicleType",
+          "index": "Vehicle_1"
+        },
+        "target": {
+          "typeid": "EngineType",
+          "index": "Engine_1"
+        }
+      },
+      {
+        "source": {
+          "typeid": "VehicleType",
+          "index": "Vehicle_2"
+        },
+        "target": {
+          "typeid": "EngineType",
+          "index": "Engine_2"
+        }
+      },
+      {
+        "source": {
+          "typeid": "VehicleType",
+          "index": "Vehicle_3"
+        },
+        "target": {
+          "typeid": "EngineType",
+          "index": "Engine_3"
+        }
+      }
+    ]
+  },
+  {
+    "typeid": "__Link",
+    "values": [
+      {
+        "source": {
+          "typeid": "VehicleType",
+          "index": "Vehicle_1"
+        },
+        "target": {
+          "typeid": "TransmissionType",
+          "index": "Transmission_1"
+        }
+      },
+      {
+        "source": {
+          "typeid": "VehicleType",
+          "index": "Vehicle_2"
+        },
+        "target": {
+          "typeid": "TransmissionType",
+          "index": "Transmission_2"
+        }
+      },
+      {
+        "source": {
+          "typeid": "VehicleType",
+          "index": "Vehicle_3"
+        },
+        "target": {
+          "typeid": "TransmissionType",
+          "index": "Transmission_3"
+        }
+      }
+    ]
+  },
+  {
+    "typeid": "__Link",
+    "values": [
+      {
+        "source": {
+          "typeid": "EngineType",
+          "index": "Engine_1"
+        },
+        "target": {
+          "containerid": "VStr_vRPM_Engine_1"
+        }
+      },
+      {
+        "source": {
+          "typeid": "EngineType",
+          "index": "Engine_2"
+        },
+        "target": {
+          "containerid": "VStr_vRPM_Engine_2"
+        }
+      },
+      {
+        "source": {
+          "typeid": "EngineType",
+          "index": "Engine_3"
+        },
+        "target": {
+          "containerid": "VStr_vRPM_Engine_3"
+        }
+      }
+    ]
+  },
+  {
+    "typeid": "__Link",
+    "values": [
+      {
+        "source": {
+          "typeid": "EngineType",
+          "index": "Engine_1"
+        },
+        "target": {
+          "containerid": "VStr_vCoolantTemp_Engine_1"
+        }
+      },
+      {
+        "source": {
+          "typeid": "EngineType",
+          "index": "Engine_2"
+        },
+        "target": {
+          "containerid": "VStr_vCoolantTemp_Engine_2"
+        }
+      },
+      {
+        "source": {
+          "typeid": "EngineType",
+          "index": "Engine_3"
+        },
+        "target": {
+          "containerid": "VStr_vCoolantTemp_Engine_3"
+        }
+      }
+    ]
+  },
+  {
+    "typeid": "__Link",
+    "values": [
+      {
+        "source": {
+          "typeid": "VehicleType",
+          "index": "Vehicle_1"
+        },
+        "target": {
+          "containerid": "VStr_vVehicleMeas_Vehicle_1"
+        }
+      },
+      {
+        "source": {
+          "typeid": "VehicleType",
+          "index": "Vehicle_2"
+        },
+        "target": {
+          "containerid": "VStr_vVehicleMeas_Vehicle_2"
+        }
+      },
+      {
+        "source": {
+          "typeid": "VehicleType",
+          "index": "Vehicle_3"
+        },
+        "target": {
+          "containerid": "VStr_vVehicleMeas_Vehicle_3"
+        }
+      }
+    ]
+  },
+  {
+    "typeid": "__Link",
+    "values": [
+      {
+        "source": {
+          "typeid": "VehicleType",
+          "index": "Vehicle_1"
+        },
+        "target": {
+          "containerid": "VStr_vVehicleStatus_Vehicle_1"
+        }
+      },
+      {
+        "source": {
+          "typeid": "VehicleType",
+          "index": "Vehicle_2"
+        },
+        "target": {
+          "containerid": "VStr_vVehicleStatus_Vehicle_2"
+        }
+      },
+      {
+        "source": {
+          "typeid": "VehicleType",
+          "index": "Vehicle_3"
+        },
+        "target": {
+          "containerid": "VStr_vVehicleStatus_Vehicle_3"
+        }
+      }
+    ]
+  },
+  {
+    "typeid": "__Link",
+    "values": [
+      {
+        "source": {
+          "typeid": "VehicleType",
+          "index": "Vehicle_1"
+        },
+        "target": {
+          "containerid": "VStr_vVehicleFloat_Vehicle_1"
+        }
+      },
+      {
+        "source": {
+          "typeid": "VehicleType",
+          "index": "Vehicle_2"
+        },
+        "target": {
+          "containerid": "VStr_vVehicleFloat_Vehicle_2"
+        }
+      },
+      {
+        "source": {
+          "typeid": "VehicleType",
+          "index": "Vehicle_3"
+        },
+        "target": {
+          "containerid": "VStr_vVehicleFloat_Vehicle_3"
+        }
+      }
+    ]
+  },
+  {
+    "typeid": "__Link",
+    "values": [
+      {
+        "source": {
+          "typeid": "VehicleType",
+          "index": "Vehicle_1"
+        },
+        "target": {
+          "containerid": "VStr_vVehicleInt_Vehicle_1"
+        }
+      },
+      {
+        "source": {
+          "typeid": "VehicleType",
+          "index": "Vehicle_2"
+        },
+        "target": {
+          "containerid": "VStr_vVehicleInt_Vehicle_2"
+        }
+      },
+      {
+        "source": {
+          "typeid": "VehicleType",
+          "index": "Vehicle_3"
+        },
+        "target": {
+          "containerid": "VStr_vVehicleInt_Vehicle_3"
+        }
+      }
+    ]
+  }
+]
+
+
+
+
+
+
+
+
+

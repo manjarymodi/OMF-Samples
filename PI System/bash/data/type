@@ -1,0 +1,176 @@
+[
+  {
+    "id": "VehicleType",
+    "description": "vehicle description",
+    "type": "object",
+    "classification": "static",
+    "properties": {
+      "VehicleName": {
+        "type": "string",
+        "isindex": true
+      },
+      "vin": {
+        "type": "string"
+      },
+      "year": {
+        "type": "integer"
+      },
+      "make": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "inservicedate": {
+        "type": "string",
+        "format": "date-time"
+      }
+    }
+  },
+  {
+    "id": "EngineType",
+    "description": "Engine description",
+    "type": "object",
+    "classification": "static",
+    "properties": {
+      "EngineName": {
+        "type": "string",
+        "isindex": true
+      },
+      "SerialNumber": {
+        "type": "string"
+      },
+      "Manufacturer": {
+        "type": "string"
+      },
+      "Cylinders": {
+        "type": "integer"
+      },
+      "InServiceDate": {
+        "type": "string",
+        "format": "date-time"
+      }
+    }
+  },
+  {
+    "id": "TransmissionType",
+    "description": "Transmission description",
+    "type": "object",
+    "classification": "static",
+    "properties": {
+      "TransmissionName": {
+        "type": "string",
+        "isindex": true
+      },
+      "SerialNumber": {
+        "type": "string"
+      },
+      "Manufacturer": {
+        "type": "string"
+      },
+      "InServiceDate": {
+        "type": "string",
+        "format": "date-time"
+      }
+    }
+  },
+  {
+    "id": "vRPMType",
+    "description": "Timestamp and real-time value(s)",
+    "type": "object",
+    "classification": "dynamic",
+    "properties": {
+      "IndexedDateTime": {
+        "type": "string",
+        "format": "date-time",
+        "isindex": true
+      },
+      "vRPM": {
+        "type": "number"
+      }
+    }
+  },
+  {
+    "id": "vCoolantTempType",
+    "description": "Timestamp and real-time value(s)",
+    "type": "object",
+    "classification": "dynamic",
+    "properties": {
+      "IndexedDateTime": {
+        "type": "string",
+        "format": "date-time",
+        "isindex": true
+      },
+      "vCoolantTemp": {
+        "type": "number"
+      }
+    }
+  },
+  {
+    "id": "vVehicleMeasType",
+    "description": "Timestamp and real-time value(s)",
+    "type": "object",
+    "classification": "dynamic",
+    "properties": {
+      "IndexedDateTime": {
+        "type": "string",
+        "format": "date-time",
+        "isindex": true
+      },
+      "vSpeed": {
+        "type": "number"
+      },
+      "vPressure": {
+        "type": "number"
+      }
+    }
+  },
+  {
+    "id": "vVehicleStatusType",
+    "description": "Timestamp and real-time value(s)",
+    "type": "object",
+    "classification": "dynamic",
+    "properties": {
+      "IndexedDateTime": {
+        "type": "string",
+        "format": "date-time",
+        "isindex": true
+      },
+      "vVehicleStatus": {
+        "type": "string"
+      }
+    }
+  },
+  {
+    "id": "vVehicleFloatType",
+    "description": "Timestamp and real-time value(s)",
+    "type": "object",
+    "classification": "dynamic",
+    "properties": {
+      "IndexedDateTime": {
+        "type": "string",
+        "format": "date-time",
+        "isindex": true
+      },
+      "vVehicleFloat": {
+        "type": "number"
+      }
+    }
+  },
+  {
+    "id": "vVehicleIntType",
+    "description": "Timestamp and real-time value(s)",
+    "type": "object",
+    "classification": "dynamic",
+    "properties": {
+      "IndexedDateTime": {
+        "type": "string",
+        "format": "date-time",
+        "isindex": true
+      },
+      "vVehicleInt": {
+        "type": "integer"
+      }
+    }
+  }
+]

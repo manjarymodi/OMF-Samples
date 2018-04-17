@@ -1,0 +1,82 @@
+[
+  {
+    "typeid": "VehicleType",
+    "values": [
+      {
+        "VehicleName": "Vehicle_1",
+        "VIN": "VIN_5001",
+        "Year": 2000,
+        "Make": "Audi",
+        "Model": "740il",
+        "InServiceDate": "2017-08-16T21:28:44Z"
+      },
+      {
+        "VehicleName": "Vehicle_2",
+        "VIN": "VIN_5002",
+        "Year": 2001,
+        "Make": "BMW",
+        "Model": "E350",
+        "InServiceDate": "2017-08-16T21:28:44Z"
+      },
+      {
+        "VehicleName": "Vehicle_3",
+        "VIN": "VIN_5003",
+        "Year": 2002,
+        "Make": "Mercedes-Benz",
+        "Model": "S4",
+        "InServiceDate": "2017-08-16T21:28:44Z"
+      }
+    ]
+  },
+  {
+    "typeid": "EngineType",
+    "values": [
+      {
+        "EngineName": "Engine_1",
+        "SerialNumber": "E_SerialNumber_1",
+        "Cylinders": 8,
+        "Manufacturer": "BMW Engines",
+        "InServiceDate": "2017-08-16T21:28:44Z"
+      },
+      {
+        "EngineName": "Engine_2",
+        "SerialNumber": "E_SerialNumber_2",
+        "Cylinders": 6,
+        "Manufacturer": "Mercedes-Benz Engines",
+        "InServiceDate": "2017-08-16T21:28:44Z"
+      },
+      {
+        "EngineName": "Engine_3",
+        "SerialNumber": "E_SerialNumber_3",
+        "Cylinders": 4,
+        "Manufacturer": "Audi Engines",
+        "InServiceDate": "2017-08-16T21:28:44Z"
+      }
+    ]
+  },
+  {
+    "typeid": "TransmissionType",
+    "values": [
+      {
+        "TransmissionName": "Transmission_1",
+        "SerialNumber": "T_SerialNumber_101",
+        "Manufacturer": "BMW Transmissions",
+        "InServiceDate": "2017-08-16T21:28:44Z"
+      },
+      {
+        "TransmissionName": "Transmission_2",
+        "SerialNumber": "T_SerialNumber_102",
+        "Manufacturer": "Mercedes-Benz Transmissions",
+        "InServiceDate": "2017-08-16T21:28:44Z"
+      },
+      {
+        "TransmissionName": "Transmission_3",
+        "SerialNumber": "T_SerialNumber_103",
+        "Manufacturer": "Audi Transmissions",
+        "InServiceDate": "2017-08-16T21:28:44Z"
+      }
+    ]
+  }
+]
+
+

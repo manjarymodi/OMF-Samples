@@ -1,0 +1,63 @@
+#
+# @(#) omfDemo - Send OSIsoft message format (OMF) messages
+#
+#  ©2018 OSIsoft, LLC. All Rights Reserved.
+#
+#  No Warranty or Liability.  The OSIsoft Samples contained herein are being supplied to Licensee
+#  “AS IS” without any warranty of any kind.  OSIsoft DISCLAIMS ALL EXPRESS AND IMPLIED WARRANTIES,
+#  INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+#  PURPOSE and NONINFRINGEMENT. In no event will OSIsoft be liable to Licensee or to any third party
+#  for damages of any kind arising from Licensee’s use of the OSIsoft Samples OR OTHERWISE, including
+#  but not limited to direct, indirect, special, incidental and consequential damages, and Licensee
+#  expressly assumes the risk of all such damages.  FURTHER, THE OSIsoft SAMPLES ARE NOT ELIGIBLE FOR
+#  SUPPORT UNDER EITHER OSISOFT’S STANDARD OR ENTERPRISE LEVEL SUPPORT AGREEMENTS
+#
+
+# default urn
+url=/ingress/messages
+
+if [ $# -eq 2 -o $# -eq 3 ] ; then
+   relayHost=$1
+   relayPort=$2
+   [ ! -z "$3" ] && url=$3
+else
+   echo "Usage: $0 OMFRESTEndPoint PortNum [URN]"
+   echo "URN is optional, default URN is /ingress/messages"
+   exit 1
+fi
+
+if [ ! -d data ] ; then
+   echo "Error: data directory missing, did you only extract this file?"
+   echo "script is expecting a folder with OMF definition files"
+  exit 1
+fi
+
+# Create/update the data file with current time stamps using the template.data file
+ndate=`date -u '+%Y-%m-%dT%TZ'`
+sed "s/REPLACEWITHUTCDATETIME/$ndate/" data/template.data > data/data
+
+if [ ! -f token ] ; then
+   echo "Error: file token does not exist."
+   echo "this file should contain the security token for the OMF endpoint"  
+   exit 1
+fi
+token=`head -1 token`
+
+# The subdirectory data contains files that conform to the OSIsoft Message Format
+# Loop through each files, sending the contents to the OMF REST endpoint
+
+for file in type container data-assets data-links data
+do
+   # if file has a '-', remove suffix and use the prefix as the messagetype
+   payload=`echo $file | cut -f1 -d'-'`
+   curl -k \
+      -w "Sending: $payload\nhttp status code: %{http_code}\n" \
+      -H "producertoken: $token" \
+      -H "messageformat: JSON" \
+      -H "action: create" \
+      -H "omfversion: 1.0" \
+      -H "messagetype: $payload" \
+      -H "Content-Type: application/json" \
+      --trace traceout \
+      -d@data/$file https://$relayHost:$relayPort$url
+done
