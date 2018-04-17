@@ -1,1 +1,1 @@
-Coming soon!
+We have prepared essentially the same example and simply ported it for some of the most common languages and platforms in which we have heard our users express interest.  These examples should altogether allow sending data using the OSIsoft Message Format from both Windows and Linux platforms, and from both ARM-and x86-processor boards.  Please let us know if you feel that there is another common language or platform that is not covered by these samples!
