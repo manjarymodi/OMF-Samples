@@ -2,12 +2,13 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
+*.vspscc
 /CSharp/IngressServiceAPI/packages/Newtonsoft.Json.8.0.2
 /CSharp/IngressServiceAPI/bin/Debug
 /CSharp/IngressServiceAPI/obj/Debug
 /CSharp/IngressServiceAPI/.vs/IngressServiceAPI/v14/.suo
 /CSharp/IngressServiceAPI/.vs/IngressServiceAPI/v15
-/PI System/Tutorials/CSharp/.vs/OMF_sample_CSharp/v15/Server/sqlite3
-/PI System/Tutorials/CSharp/obj/Debug
-/PI System/Tutorials/CSharp/OMF_sample_CSharp.csproj.vspscc
+/PI System/Tutorials/CSharp/obj
 /PI System/Tutorials/CSharp/.vs
+/PI System/Tutorials/CSharp/bin
+/PI System/Tutorials/CSharp/packages

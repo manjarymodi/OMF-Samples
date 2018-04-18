@@ -16,6 +16,8 @@
 # NOTE: this script was designed using the v1.0
 # version of the OMF specification, as outlined here:
 # http://omf-docs.osisoft.com/en/v1.0
+# For more info, see OMF Developer Companion Guide:
+# http://omf-companion-docs.osisoft.com
 ****************************************************************************************/
 
 using System.Reflection;
@@ -24,11 +26,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CSharp OMF v1.0 Sample")]
+[assembly: AssemblyTitle("CSharp OMF v1.0 Sample Application")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("OSIsoft, LLC")]
-[assembly: AssemblyProduct("CSharp OMF v1.0 Sample")]
+[assembly: AssemblyProduct("CSharp OMF v1.0 Sample Application")]
 [assembly: AssemblyCopyright("©  2018, OSIsoft, LLC")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

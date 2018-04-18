@@ -16,6 +16,8 @@
 # NOTE: this script was designed using the v1.0
 # version of the OMF specification, as outlined here:
 # http://omf-docs.osisoft.com/en/v1.0
+# For more info, see OMF Developer Companion Guide:
+# http://omf-companion-docs.osisoft.com
 ****************************************************************************************/
 
 using System;
