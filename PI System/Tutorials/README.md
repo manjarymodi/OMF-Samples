@@ -1,5 +1,5 @@
-# OMF-Samples for PI Connector Relay and PI System backend
+# OMF-Samples created by OSIsoft specific to PI System backend
 
-Here you may find three OMF v1.0 sample applications written in Microsoft C#, Python and Node.js. The samples demonstrate the most common usage of OMF version 1.0 with the PI Connector Relay ingress endpoint, and PI System backend. They all create the same PI Asset Framework reference models and the same sets of PI Data Archive points. The only differnce is the programming language been used.
+The set of samples created by OSIsoft, which are platform and programming language agnostic, and show common OMF version 1.0 functionality specific to the PI System backend.
 
-Before you run the samples, you need to register them with PI Connector Administator to obtain necessary Producer Token and Relay Ingress URL, which you will use to send OMF messages. For more information, see PI Connector Administation Guide.
+The set contains three OMF v1.0 sample applications written in Microsoft C#, Python and Node.js. The samples demonstrate the most common usage of OMF. They all create the same PI Asset Framework reference models and the same sets of PI Data Archive points. The only differnce is the programming language been used.
