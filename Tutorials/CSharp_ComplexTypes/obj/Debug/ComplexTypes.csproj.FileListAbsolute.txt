@@ -1,0 +1,9 @@
+C:\Users\kchudnovskiy\Source\Repos\OMF-Samples\Tutorials\CSharp_ComplexTypes\bin\Debug\IngressServiceAPI.exe.config
+C:\Users\kchudnovskiy\Source\Repos\OMF-Samples\Tutorials\CSharp_ComplexTypes\bin\Debug\IngressServiceAPI.exe
+C:\Users\kchudnovskiy\Source\Repos\OMF-Samples\Tutorials\CSharp_ComplexTypes\bin\Debug\IngressServiceAPI.pdb
+C:\Users\kchudnovskiy\Source\Repos\OMF-Samples\Tutorials\CSharp_ComplexTypes\bin\Debug\Newtonsoft.Json.dll
+C:\Users\kchudnovskiy\Source\Repos\OMF-Samples\Tutorials\CSharp_ComplexTypes\bin\Debug\Newtonsoft.Json.xml
+C:\Users\kchudnovskiy\Source\Repos\OMF-Samples\Tutorials\CSharp_ComplexTypes\obj\Debug\ComplexTypes.csprojResolveAssemblyReference.cache
+C:\Users\kchudnovskiy\Source\Repos\OMF-Samples\Tutorials\CSharp_ComplexTypes\obj\Debug\ComplexTypes.csproj.CoreCompileInputs.cache
+C:\Users\kchudnovskiy\Source\Repos\OMF-Samples\Tutorials\CSharp_ComplexTypes\obj\Debug\IngressServiceAPI.exe
+C:\Users\kchudnovskiy\Source\Repos\OMF-Samples\Tutorials\CSharp_ComplexTypes\obj\Debug\IngressServiceAPI.pdb
