@@ -1,3 +1,0 @@
-# Sample Node.js OMF applicaiton specific to PI System backend
-
-Before running this sample OMF application, register it with PI Data Collection Manager, obtain "Producer Token" and "Relay Ingress URL", and update "config.json" file. For more information about registration process, please see [PI Connector Administration Guide.](https://techsupport.osisoft.com/Downloads/File/40489fc5-e515-4669-b185-8866a9f9f616)

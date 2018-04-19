@@ -8,6 +8,10 @@ While the same messages can be sent to both an on-premise PI System and OSIsoft 
 
 More information on OMF can be found [here.](http://omf-docs.osisoft.com)
 
+The samples are divided in two sub-groups:  
+- Tutorials – These samples are platform and programming language agnostic, and show common OMF version 1.0 functionality.
+- Community Samples. These samples are provided to us by you - our growing community of developers interested in OSIsoft Messaging Format data ingress technologies. Thank you for your interest and contributions!  
+
 ##License
 
 Copyright 2017 OSIsoft, LLC
