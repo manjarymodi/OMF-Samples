@@ -1,0 +1,3 @@
+# OMF-Samples created by OSIsoft
+
+The set of samples created by OSIsoft, which are platform and programming language agnostic, and show OMF version 1.0 functionality. The samples that use the suffix “_PI” have been tested for compatibility with the PI Server; the samples that use the suffix “_SDS” have been tested for compatibility with OSIsoft Cloud Services and Edge Data Store. OSIsoft recommends you use the appropriate samples with the appropriate OSIsoft storage technology.
