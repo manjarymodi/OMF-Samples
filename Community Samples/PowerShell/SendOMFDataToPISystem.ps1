@@ -195,7 +195,7 @@ function send_omf_message_to_endpoint
         # !!! Note: if desired, uncomment the below line to write-host  the outgoing message
         write-host ("`nOutgoing message: " + $message_json);
         # Send the request, and collect the response
-        $response = Invoke-WebRequest -Uri $TARGET_URL -Headers $customHeaders -TimeoutSec $WEB_REQUEST_TIMEOUT_SECONDS -Body $message_json -Method POST
+        $response = Invoke-WebRequest -Uri $TARGET_URL -Headers $customHeaders -TimeoutSec $WEB_REQUEST_TIMEOUT_SECONDS -Body $message_json -Method POST -ContentType 'application/json'
 
         # Show the response
         write-host ("Response code: " + $response.StatusCode);
