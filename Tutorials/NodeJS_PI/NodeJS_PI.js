@@ -61,14 +61,14 @@ var options = {
 # point
 # ************************************************************************/
 
-// Creates a JSON packet containing data values for Container1
+// Creates a JSON packet containing data values for containers
 // of type FirstDynamicType defined below
-function create_data_values_for_container1() {
+function create_data_values_for_first_dynamic_type(containerid) {
     var timestring = new Date(Date.now()).toISOString(); 
 
     var event = [
         {
-            "containerid": "Container1",
+            "containerid": containerid,
             "values": [
                 {
                     "timestamp": timestring,
@@ -81,30 +81,11 @@ function create_data_values_for_container1() {
     return event;
 }
 
-// Creates a JSON packet containing data values for Container2
-// of type FirstDynamicType defined below
-function create_data_values_for_container2() {
-    var timestring = new Date(Date.now()).toISOString(); 
-
-    var event = [
-        {
-            "containerid": "Container2",
-            "values": [
-                {
-                    "timestamp": timestring,
-                    "IntegerProperty": Math.floor(Math.random() * 100)
-                }
-            ]
-        }
-    ];
-    return event;
-}
-
-// Creates a JSON packet containing data values for Container3
+// Creates a JSON packet containing data values for containers
 // of type SecondDynamicType defined below
 var string_boolean_value = "True";
 
-function create_data_values_for_container3() {
+function create_data_values_for_second_dynamic_type(containerid) {
     var timestring = new Date(Date.now()).toISOString(); 
     if (string_boolean_value == "True")
         string_boolean_value = "False";
@@ -113,13 +94,13 @@ function create_data_values_for_container3() {
 
     var event = [
         {
-            "containerid": 'Container3',
+            "containerid": containerid,
             "values": [
                 {
                     "timestamp": timestring,
-                    "SecondDynamicType NumberProperty 1": Math.random() * 100,
-                    "SecondDynamicType NumberProperty 2": Math.random() * 100,
-                    "SecondDynamicType String Enum": string_boolean_value
+                    "NumberProperty1": Math.random() * 100,
+                    "NumberProperty2": Math.random() * 100,
+                    "StringEnum": string_boolean_value
 
                 }
             ]
@@ -129,24 +110,24 @@ function create_data_values_for_container3() {
     return event;
 }
 
-// Creates a JSON packet containing data values for Container4
+// Creates a JSON packet containing data values for containers
 // of type ThirdDynamicType defined below
-var boolean_value = 0;
-function create_data_values_for_container4() {
-    if (boolean_value == 0)
-        boolean_value = 1;
+var integer_boolean_value = 0;
+function create_data_values_for_third_dynamic_type(containerid) {
+    if (integer_boolean_value == 0)
+        integer_boolean_value = 1;
     else {
-        boolean_value = 0;
+        integer_boolean_value = 0;
     }
     
     var timestamp = new Date(Date.now()).toISOString();
     var event = [
         {
-            "containerid": "Container4",
+            "containerid": containerid,
             "values": [
                 {
                     "timestamp": timestamp,
-                    "BooleanEnum": boolean_value
+                    "IntegerEnum": integer_boolean_value
                 }
             ]
         }
@@ -299,21 +280,23 @@ typesDynamic = [
                 "name": "not in use",
                 "description": "not in use"
             },
-            "SecondDynamicType NumberProperty 1": {
+            "NumberProperty1": {
                 "type": "number",
                 "name": "Number attribute 1",
-                "description": "PI point data referenced number attribute 1"
+                "description": "PI point data referenced number attribute 1",
+                "format": "float64"
             },
-            "SecondDynamicType NumberProperty 2": {
+            "NumberProperty2": {
                 "type": "number",
                 "name": "Number attribute 2",
-                "description": "PI point data referenced number attribute 2"
+                "description": "PI point data referenced number attribute 2",
+                "format": "float64"
             },
-            "SecondDynamicType String Enum": {
+            "StringEnum": {
                 "type": "string",
                 "enum": ["False", "True"],
-                "name": "String enumeration representing Boolean type",
-                "description": "PI point data referenced digital set for Boolean"
+                "name": "String enumeration",
+                "description": "String enumeration to replace boolean type"
             }
         }
     },
@@ -331,7 +314,7 @@ typesDynamic = [
                 "name": "not in use",
                 "description": "not in use"
             },
-            "BooleanEnum": {
+            "IntegerEnum": {
                 "type": "integer",
                 "format": "int16",
                 "enum": [0, 1],
@@ -534,20 +517,10 @@ seq()
 # ************************************************************************/
 monitor.on('monitor',
     function() {
-        switch (update) {
-        case stream1_update:
-            send_omf_message_to_endpoint("data", create_data_values_for_container1(), null);
-            break;
-        case stream2_update:
-            send_omf_message_to_endpoint("data", create_data_values_for_container2(), null);
-            break;
-        case stream3_update:
-                send_omf_message_to_endpoint("data", create_data_values_for_container3(), null);
-                send_omf_message_to_endpoint("data", create_data_values_for_container4(), null);
-            break;            
-        }
-        update = (update + 1) % (stream3_update + 1);
-
+        send_omf_message_to_endpoint("data", create_data_values_for_first_dynamic_type("container1"), null);
+        send_omf_message_to_endpoint("data", create_data_values_for_first_dynamic_type("container2"), null);
+        send_omf_message_to_endpoint("data", create_data_values_for_second_dynamic_type("container3"), null);
+        send_omf_message_to_endpoint("data", create_data_values_for_third_dynamic_type("container4"), null);
     });
 
 //shutdown gracefully on SIGTERM

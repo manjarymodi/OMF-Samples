@@ -39,7 +39,7 @@ import requests
 
 # Specify the producer token
 # For more information see PI Connector Administration Guide
-PRODUCER_TOKEN = "uid=3f4249a9-37e8-4041-89cf-ebda7d7d2797&sig=c5NE3tL93Or18eeSvc9Fwh0EZ+I6HLt9OTaq2t7zrfQ="
+PRODUCER_TOKEN = "uid=acd124d1-a571-4124-bda6-d3baf529b888&crt=20180510202247360&sig=hFEUTLI1HzxkJjKvORjEkFLjloFKZIlt2bMRHAVPpTY="
 
 # Specify the address of the destination endpoint
 # For more information see PI Connector Administration Guide
@@ -214,21 +214,23 @@ send_omf_message_to_endpoint("type", [
                 "name": "not in use",
                 "description": "not in use"
             },
-            "SecondDynamicType NumberProperty 1": {
+            "NumberProperty1": {
                 "type": "number",
                 "name": "Number attribute 1",
-                "description": "PI point data referenced number attribute 1"
+                "description": "PI point data referenced number attribute 1",
+                "format": "float64"
             },
-            "SecondDynamicType NumberProperty 2": {
+            "NumberProperty2": {
                 "type": "number",
                 "name": "Number attribute 2",
-                "description": "PI point data referenced number attribute 2"
+                "description": "PI point data referenced number attribute 2",
+                "format": "float64"
             },
-            "SecondDynamicType String Enum": {
+            "StringEnum": {
                  "type": "string",
                  "enum": ["False", "True"],
-                 "name": "String enumeration representing Boolean type",
-                 "description": "PI point data referenced digital set for Boolean"
+                 "name": "String enumeration",
+                 "description": "String enumeration to replace boolean type"
             }
         }
     },
@@ -246,7 +248,7 @@ send_omf_message_to_endpoint("type", [
                 "name": "not in use",
                 "description": "not in use"
             },
-            "BooleanEnum": {
+            "IntegerEnum": {
                 "type": "integer",
                 "format": "int16",
                 "enum": [0, 1],
@@ -411,27 +413,12 @@ def getCurrentTime():
     return datetime.datetime.utcnow().isoformat() + 'Z'
 
 
-# Creates a JSON packet containing data values for Container1
+# Creates a JSON packet containing data values for containers
 # of type FirstDynamicType defined below
-def create_data_values_for_container1():
+def create_data_values_for_first_dynamic_type(containerid):
     return [
         {
-            "containerid": "Container1",
-            "values": [
-                {
-                    "timestamp": getCurrentTime(),
-                    "IntegerProperty": int(100*random.random())
-                }
-            ]
-        }
-    ]
-
-# Creates a JSON packet containing data values for Container2
-# of type FirstDynamicType defined below
-def create_data_values_for_container2():
-    return [
-        {
-            "containerid": "Container2",
+            "containerid": containerid,
             "values": [
                 {
                     "timestamp": getCurrentTime(),
@@ -444,9 +431,9 @@ def create_data_values_for_container2():
 
 string_boolean_value = "True"
 
-# Creates a JSON packet containing data values for Container3
+# Creates a JSON packet containing data values for containers
 # of type SecondDynamicType defined below
-def create_data_values_for_container3():
+def create_data_values_for_second_dynamic_type(containerid):
     global string_boolean_value
     if string_boolean_value == "True":
         string_boolean_value = "False"
@@ -455,35 +442,35 @@ def create_data_values_for_container3():
 
     return [
         {
-            "containerid": "Container3",
+            "containerid": containerid,
             "values": [
                 {
                     "timestamp": getCurrentTime(),
-                    "SecondDynamicType NumberProperty 1": 100*random.random(),
-                    "SecondDynamicType NumberProperty 2": 100*random.random(),
-                    "SecondDynamicType String Enum": string_boolean_value
+                    "NumberProperty1": 100*random.random(),
+                    "NumberProperty2": 100*random.random(),
+                    "StringEnum": string_boolean_value
                 }
             ]
         }
     ]
 
 
-# Creates a JSON packet containing data values for Container4
+# Creates a JSON packet containing data values for containers
 # of type ThirdDynamicType defined below
-boolean_value = 0
-def create_data_values_for_container4():
-    global boolean_value
-    if boolean_value == 0:
-        boolean_value = 1
+integer_boolean_value = 0
+def create_data_values_for_third_dynamic_type(containerid):
+    global integer_boolean_value
+    if integer_boolean_value == 0:
+        integer_boolean_value = 1
     else:
-        boolean_value = 0
+        integer_boolean_value = 0
     return [
         {
-            "containerid": "Container4",
+            "containerid": containerid,
             "values": [
                 {
                     "timestamp": getCurrentTime(),
-                    "BooleanEnum": boolean_value
+                    "IntegerEnum": integer_boolean_value
                 }
             ]
         }
@@ -501,20 +488,9 @@ def create_data_values_for_container4():
 # different containerids at different times
 # ************************************************************************
 
-update = 0
-stream1_update = 1
-stream2_update = 2
-stream3_update = 3
-
 while True:
-    update = update + 1
-    if update == stream1_update: 
-        send_omf_message_to_endpoint("data", create_data_values_for_container1())
-    elif update == stream2_update: 
-        send_omf_message_to_endpoint("data", create_data_values_for_container2())
-    elif update == stream3_update: 
-        send_omf_message_to_endpoint("data", create_data_values_for_container3())
-        send_omf_message_to_endpoint("data", create_data_values_for_container4())
-    if update == 3:
-        update = 0
+    send_omf_message_to_endpoint("data", create_data_values_for_first_dynamic_type("container1"))
+    send_omf_message_to_endpoint("data", create_data_values_for_first_dynamic_type("container2"))
+    send_omf_message_to_endpoint("data", create_data_values_for_second_dynamic_type("container3"))
+    send_omf_message_to_endpoint("data", create_data_values_for_third_dynamic_type("container4"))
     time.sleep(1)
