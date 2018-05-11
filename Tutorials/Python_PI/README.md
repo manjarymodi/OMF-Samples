@@ -13,4 +13,4 @@ There are a few limitations you should be aware of developing OMF applications f
 - Compound indexing is not supported. You should specify only one OMF type property with the keyword "isindex" set to "true". For OMF types with keyword "classification" set to "dynamic", the "isindex" property must be formatted as "date-time", representing timestamp for a data stream.  
 - Nested properties and array properties of type "object" are not supported.
 
-For more information about writing OMF applications for on-premises PI System, please see [OMF Developer Companion Guide.](http://http://omf-developers-companion.readthedocs.io/en/latest)
+For more information about writing OMF applications for on-premises PI System, please see [OMF Developer Companion Guide.](http://omf-companion-docs.osisoft.com)
