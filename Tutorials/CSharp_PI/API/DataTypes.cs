@@ -132,7 +132,7 @@ namespace IngressServiceAPI
     class SecondDynamicType
     {
         public DateTime timestamp { get; set; }
-        public double  NumberProperty1 { get; set; }
+        public double NumberProperty1 { get; set; }
         public double NumberProperty2 { get; set; }
         public string StringEnum { get; set; }
 
@@ -167,8 +167,8 @@ namespace IngressServiceAPI
                     ""StringEnum"": {
                         ""type"": ""string"",
                         ""enum"": [""False"", ""True""],
-                        ""name"": ""String enumeration representing Boolean type"",
-                        ""description"": ""PI point data referenced digital set for Boolean"",
+                        ""name"": ""String enumeration"",
+                        ""description"": ""String enumeration to replace boolean type""
                     }
                 }
             }";
@@ -183,7 +183,7 @@ namespace IngressServiceAPI
         public const string JsonSchema =
             @"{
                ""id"": ""ThirdDynamicType"",
-                ""name"": ""Integer enumeration"",
+                ""name"": ""Third dynamic type"",
                 ""classification"": ""dynamic"",
                 ""type"": ""object"",
                 ""description"": ""not in use"",
@@ -197,10 +197,10 @@ namespace IngressServiceAPI
                     },
                     ""IntegerEnum"": {
                         ""type"": ""integer"",
+                        ""format"": ""int16"",
                         ""name"": ""Integer enumeration"",
                         ""enum"": [0, 1],
-                        ""description"": ""Integer enumeration to replace boolean type"",
-                        ""format"": ""int16""
+                        ""description"": ""Integer enumeration to replace boolean type""
                     }
                 }
             }";

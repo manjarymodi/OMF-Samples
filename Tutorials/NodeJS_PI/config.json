@@ -1,18 +1,7 @@
 {
-  // Specify the producer token
-  // For more information see PI Connector Administration Guide
-  "producertoken": "uid=80058e73-afbe-4d7d-99a3-9ad9a29cadfd&sig=diudn5T0jEdN/jfOcMiX21V4kryuOPzs9d4i6XWwyRo=",
-
-  // Specify the address of the destination endpoint
-  // For more information see PI Connector Administration Guide
+  "producertoken": "uid=5f807217-7b11-43d1-9592-18c8d397cc8d&crt=20180510202247324&sig=WkJGXcN0dcCx4GEzb4eLNhJv8RRCk5Pw/etCiLDwG1U=",
   "endpoint": "http://localhost:8118/ingress/messages",
-
-  // Data ingress interval in milliseconds
   "interval": 1000,
-
-  // Verify Relay's self-signed certificate
   "verifyCert": false,
-
-  // Use compression
   "compressionGzip": true
 }

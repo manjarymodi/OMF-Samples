@@ -3,16 +3,9 @@
 ################################################################################
 
 *.vspscc
-/CSharp/IngressServiceAPI/packages/Newtonsoft.Json.8.0.2
-/CSharp/IngressServiceAPI/bin/Debug
-/CSharp/IngressServiceAPI/obj/Debug
-/CSharp/IngressServiceAPI/.vs/IngressServiceAPI/v14/.suo
-/CSharp/IngressServiceAPI/.vs/IngressServiceAPI/v15
-/PI System/Tutorials/CSharp/obj
-/PI System/Tutorials/CSharp/.vs
-/PI System/Tutorials/CSharp/bin
-/PI System/Tutorials/CSharp/packages
-/Tutorials/CSharp_Metadata/obj/Debug
-/Tutorials/CSharp_Metadata/.vs
-/Tutorials/CSharp_Metadata/bin/Debug
-/Tutorials/CSharp_Metadata/packages
+/Tutorials/CSharp_PI/obj
+/Tutorials/CSharp_PI/packages
+/Tutorials/CSharp_PI/bin
+/Tutorials/CSharp_PI/.vs
+/Tutorials/NodeJS_PI/node_modules
+/Tutorials/NodeJS_PI/package-lock.json
