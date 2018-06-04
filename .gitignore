@@ -10,5 +10,5 @@
 /Tutorials/CSharp_PI/.vs
 /Tutorials/NodeJS_PI/node_modules
 /Tutorials/NodeJS_PI/package-lock.json
-/.vs/slnx.sqlite
 /.vs
+/Tutorials/CSharp_Sds/obj
