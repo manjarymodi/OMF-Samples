@@ -8,5 +8,5 @@
 #           -> mix escript.build        (To build the project)
 #           -> escript sample           (To run the executable)
 
-# Inorder to make the API call, this sample is using httpotion library. Inorder to learn more about elixir and httption please refer https://hexdocs.pm/elixir/1.0.5
-
+# Inorder to make the API call, this sample is using httpotion library. To learn more about elixir and httption please refer https://hexdocs.pm/elixir/1.0.5
+#NOTE: Replace the producer token and OMF end point url  in line 4 and 6 repectively with your producer token url
